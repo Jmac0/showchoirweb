@@ -34,7 +34,7 @@ const formatOptions = {
 
 type Props = {
   title: string;
-  content: any;
+  content: {};
 };
 const Home: NextPage<Props> = ({ title, content }) => {
   const [bodyTxt, setBodyTxt] = useState("");
@@ -44,7 +44,7 @@ const Home: NextPage<Props> = ({ title, content }) => {
   useEffect(() => {
     // set body text in here to solve hydration issue
     setBodyTxt(bodyHtml as any);
-  }, [bodyHtml]);
+  }, []);
 
   return (
     <div>
@@ -57,9 +57,7 @@ const Home: NextPage<Props> = ({ title, content }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <p>{bodyTxt}</p>
-      </main>
+      <main>{bodyTxt}</main>
 
       <footer></footer>
     </div>

@@ -12,5 +12,5 @@ ul {
 }
 
 h1 {
-    @apply text-red-500
+    @apply text-red-500 text-4xl pt-7
 }
