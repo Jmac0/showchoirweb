@@ -1,13 +1,12 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import { getHomepageData } from "../lib/homePageData";
+import { getHomePageData } from "../lib/getPages";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types";
+import { formatOptions } from "../lib/toReactComponent";
 
 export async function getStaticProps() {
-  const data = await getHomepageData();
-  console.log(data.fields.content.content[1]);
+  const data = await getHomePageData();
   const {
     fields: { title },
   } = data;
@@ -17,20 +16,6 @@ export async function getStaticProps() {
   } = data;
   return { props: { title, content } };
 }
-
-const formatOptions = {
-  renderNode: {
-    [BLOCKS.UL_LIST]: (node: any, children: any[]) => {
-      return (
-        <ul>
-          {children.map((item: any) => (
-            <li key={item.key}>{item.props.children[0].props.children[0]}</li>
-          ))}
-        </ul>
-      );
-    },
-  },
-};
 
 type Props = {
   title: string;
