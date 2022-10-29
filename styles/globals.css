@@ -3,6 +3,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {  background-color: rgba(32,33,36, 100) }
+
+
 p {
     @apply leading-7
 }
