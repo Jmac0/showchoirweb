@@ -1,28 +1,15 @@
 import React from 'react';
 import { getPageData } from '../lib/getPages';
 import Head from 'next/head';
-import Link from 'next/link';
+import { Nav } from '../components/Nav';
 
 type Props = {
-  content: {};
-  title: string;
-  slug: string;
-  displayText: [{ slug: string; displayText: string }];
-  items: [];
+  pathData: [{ slug: string; displayText: string; order: number }];
   currentPage: any;
 };
 
-type PageItem = {
-  fields: { order: number };
-};
-
-export default function Slug({ currentPage, items }: Props) {
+export default function Slug({ currentPage, pathData }: Props) {
   const { title } = currentPage;
-  /*sort the items/page data by order property so menu items are in order*/
-  const sortedItems = items.sort((a: PageItem, b: PageItem) =>
-    a.fields.order < b.fields.order ? -1 : 1,
-  );
-  console.log(sortedItems);
   return (
     <>
       <Head>
@@ -33,27 +20,7 @@ export default function Slug({ currentPage, items }: Props) {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <nav>
-        {/*desktop nav container*/}
-        <div className="hidden h-28 from-lightGold flex-row w-full justify-center items-center bg-gradient-to-b to-gold md:flex">
-          <Link href="/">
-            <a className="text-lightBlack font-heading px-3 hover:underline text-2xl">
-              Home
-            </a>
-          </Link>
-
-          {items.map(
-            (item: { fields: { slug: string; displayText: string } }) => (
-              <Link key={item.fields.slug} href={item.fields.slug}>
-                <a className="text-lightBlack font-heading px-3 hover:underline text-2xl">
-                  {item.fields.displayText}
-                </a>
-              </Link>
-            ),
-          )}
-        </div>
-      </nav>
-
+      <Nav pathData={pathData} />
       <main>{title}</main>
 
       <footer></footer>
@@ -81,9 +48,16 @@ type Paths = {
 export async function getStaticProps({ params }: Paths) {
   const res = await getPageData();
   const { items } = res;
+  const pathData = items.map((item: any) => {
+    return {
+      slug: item.fields.slug,
+      displayText: item.fields.displayText,
+      order: item.fields.order,
+    };
+  });
   const match = items.find((item: any) => item.fields.slug === params.slug);
   const currentPage = match.fields;
   return {
-    props: { currentPage, items },
+    props: { currentPage, pathData },
   };
 }
