@@ -18,12 +18,17 @@ export async function getStaticProps() {
   const res = await getPageData();
   const { items } = res;
   const linkData = items.map(
-    (item: { fields: { slug: string; displayText: string } }) => {
-      return { slug: item.fields.slug, displayText: item.fields.displayText };
+    (item: {
+      fields: { slug: string; displayText: string; order: number };
+    }) => {
+      return {
+        slug: item.fields.slug,
+        displayText: item.fields.displayText,
+        order: item.fields.order,
+      };
     },
   );
   //onst paths = slugs.map((s: { slug: any }) => s);
-  console.log(linkData);
 
   return { props: { title, content, linkData } };
 }
@@ -31,10 +36,12 @@ export async function getStaticProps() {
 type Props = {
   title: string;
   content: {};
-  linkData: [{ slug: string; displayText: string }];
+  linkData: [{ slug: string; displayText: string; order: number }];
 };
 const Home: NextPage<Props> = ({ title, content, linkData }) => {
   const [bodyTxt, setBodyTxt] = useState('');
+  const sortedItems = linkData.sort((a, b) => (a.order < b.order ? -1 : 1));
+  console.log(linkData);
   // convert contentful object to html rich text
   // @ts-ignore
   const bodyHtml = documentToReactComponents(content, formatOptions);
@@ -62,7 +69,7 @@ const Home: NextPage<Props> = ({ title, content, linkData }) => {
             </a>
           </Link>
 
-          {linkData.map((path) => (
+          {sortedItems.map((path) => (
             <Link key={path.slug} href={path.slug}>
               <a className="text-lightBlack font-heading px-3 hover:underline text-2xl">
                 {path.displayText}
@@ -71,7 +78,9 @@ const Home: NextPage<Props> = ({ title, content, linkData }) => {
           ))}
         </div>
       </nav>
-      <main>{bodyTxt}</main>
+      <main className={`container flex flex-col items-center bg-amber-50`}>
+        {bodyTxt}
+      </main>
       <footer></footer>
     </>
   );

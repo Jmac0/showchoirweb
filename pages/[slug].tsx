@@ -12,8 +12,17 @@ type Props = {
   currentPage: any;
 };
 
+type PageItem = {
+  fields: { order: number };
+};
+
 export default function Slug({ currentPage, items }: Props) {
   const { title } = currentPage;
+  /*sort the items/page data by order property so menu items are in order*/
+  const sortedItems = items.sort((a: PageItem, b: PageItem) =>
+    a.fields.order < b.fields.order ? -1 : 1,
+  );
+  console.log(sortedItems);
   return (
     <>
       <Head>

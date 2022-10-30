@@ -16,6 +16,7 @@ ul {
     @apply list-disc list-inside
 }
 
+
 h1 {
     @apply text-red-500 text-4xl pt-7 font-heading pb-5
 }
