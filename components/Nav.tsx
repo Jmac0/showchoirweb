@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 type PageItem = {
   slug: string;
@@ -11,52 +12,82 @@ type Props = {
 };
 
 export function Nav({ pathData }: Props) {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const sortedItems = pathData.sort((a: PageItem, b: PageItem) =>
     a.order < b.order ? -1 : 1,
   );
 
+  useEffect(() => {
+    setOpen(false);
+  }, [router]);
+
   const handleClick = (): void => {
     setOpen(!open);
   };
+  const menuItems = sortedItems.map(
+    (item: { slug: string; displayText: string }) => (
+      <Link key={item.slug} href={item.slug}>
+        <a className="text-lightBlack mb-10 font-heading px-3 hover:underline md:mb-0 hover:text-gray-600 text-2xl">
+          {item.displayText}
+        </a>
+      </Link>
+    ),
+  );
   return (
     <>
+      {/*draw*/}
+      <nav
+        className={`absolute ${
+          open ? 'left-0' : '-left-full'
+        } transition-all z-10 ease-in-out duration-300 w-3/4 h-full bg-gold bg-gradient-to-b to-gold from-lightGold md:hidden `}
+      >
+        <div className="flex flex-col pl-16  mt-36">
+          <Link href="/">
+            <a className="mb-10 text-lightBlack font-heading px-3 hover:underline hover:text-gray-600 text-2xl ">
+              Home
+            </a>
+          </Link>
+
+          {menuItems}
+        </div>
+      </nav>
+      {/*draw open overlay */}
+      <div
+        onClick={handleClick}
+        id="#fade"
+        className={`w-screen fixed z-[1] h-screen  bg-gray-700  md:hidden ${
+          open ? 'opacity-90' : ' opacity-0  invisible'
+        } transition-all duration-500 `}
+      ></div>
       <nav>
         {/*desktop nav container*/}
-        <div className=" justify-start flex pl-6 h-16 from-lightGold flex-row w-full md:justify-center items-center bg-gradient-to-b to-gold md:h-28">
+        <div className="flex justify-start pl-6 h-16 from-lightGold flex-row w-full md:justify-center items-center bg-gradient-to-b to-gold md:h-28">
           <Link href="/">
             <a className="hidden text-lightBlack font-heading px-3 hover:underline hover:text-gray-600 text-2xl md:inline-block">
               Home
             </a>
           </Link>
 
-          <div className="hidden md:inline-block">
-            {sortedItems.map((item: { slug: string; displayText: string }) => (
-              <Link key={item.slug} href={item.slug}>
-                <a className="text-lightBlack font-heading px-3 hover:underline hover:text-gray-600 text-2xl">
-                  {item.displayText}
-                </a>
-              </Link>
-            ))}
-          </div>
+          <div className="hidden md:inline-block">{menuItems}</div>
           {/*hamburger*/}
           <div
-            className="flex flex-col w-7 h-6 justify-between items-center md:hidden"
+            className="flex  flex-col z-40 w-6 h-5 justify-between items-center md:hidden"
             onClick={handleClick}
           >
             <div
-              className={`w-6 h-1 bg-blue-500 rounded-full bg-lightBlack origin-left ${
-                open ? 'rotate-45 w-7' : 'rotate-0'
+              className={`w-6 h-1 bg-lightBlack rounded-full bg-lightBlack origin-left ${
+                open ? 'rotate-45 w-[23px]' : 'rotate-0'
               } transition-all`}
             />
             <div
-              className={`w-6 h-1 bg-blue-500 rounded-full bg-lightBlack origin-left ${
+              className={`w-6 h-1 bg-lightBlack rounded-full bg-lightBlack origin-left ${
                 open && 'bg-transparent'
               } transition-all`}
             />
             <div
-              className={`w-6 h-1 bg-blue-500 rounded-full bg-lightBlack origin-left ${
-                open ? '-rotate-45 w-7' : 'rotate-0'
+              className={`w-6 h-1 bg-lightBlack rounded-full bg-lightBlack origin-left ${
+                open ? '-rotate-45 w-[23px]' : 'rotate-0'
               } transition-all`}
             />
           </div>

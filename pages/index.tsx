@@ -48,7 +48,7 @@ const Home: NextPage<Props> = ({ title, content, pathData }) => {
   }, []);
 
   return (
-    <>
+    <div className="container flex flex-col h-screen bg-blue-600 mx-auto">
       <Head>
         <title>{title}</title>
         <meta
@@ -58,13 +58,14 @@ const Home: NextPage<Props> = ({ title, content, pathData }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Nav pathData={pathData} />
+
       <main
-        className={`container mx-auto flex flex-col items-center bg-amber-50`}
+        className={`container mx-auto h-3/4 mx-auto flex flex-col items-center bg-amber-50`}
       >
         {bodyTxt}
       </main>
-      <footer></footer>
-    </>
+      <footer className="text-white h-1/4 bg-red-200">hello</footer>
+    </div>
   );
 };
 
