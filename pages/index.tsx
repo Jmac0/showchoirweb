@@ -5,6 +5,7 @@ import { getHomePageData, getPageData } from '../lib/getPages';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { formatOptions } from '../lib/toReactComponent';
 import { Nav } from '../components/Nav';
+import { Footer } from '../components/Footer';
 
 export async function getStaticProps() {
   const homePageData = await getHomePageData();
@@ -48,7 +49,7 @@ const Home: NextPage<Props> = ({ title, content, pathData }) => {
   }, []);
 
   return (
-    <div className="container flex flex-col h-screen bg-blue-600 mx-auto">
+    <div className="container flex flex-col h-screen mx-auto">
       <Head>
         <title>{title}</title>
         <meta
@@ -64,7 +65,7 @@ const Home: NextPage<Props> = ({ title, content, pathData }) => {
       >
         {bodyTxt}
       </main>
-      <footer className="text-white h-1/4 bg-red-200">hello</footer>
+      <Footer />
     </div>
   );
 };

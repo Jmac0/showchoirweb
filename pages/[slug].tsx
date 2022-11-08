@@ -2,6 +2,7 @@ import React from 'react';
 import { getPageData } from '../lib/getPages';
 import Head from 'next/head';
 import { Nav } from '../components/Nav';
+import { Footer } from '../components/Footer';
 
 type Props = {
   pathData: [{ slug: string; displayText: string; order: number }];
@@ -23,7 +24,7 @@ export default function Slug({ currentPage, pathData }: Props) {
       <Nav pathData={pathData} />
       <main>{title}</main>
 
-      <footer></footer>
+      <Footer />
     </>
   );
 }
@@ -31,10 +32,10 @@ export default function Slug({ currentPage, pathData }: Props) {
 export async function getStaticPaths() {
   const res = await getPageData();
   const { items } = res;
-  const slugs = items.map((item: { fields: { slug: string } }) => {
-    return item.fields.slug;
+  // an array of strings
+  const paths = items.map((item: { fields: { slug: string } }) => {
+    return { params: { slug: item.fields.slug } };
   });
-  const paths = slugs.map((s: { slug: any }) => ({ params: { slug: s } }));
   return {
     paths,
     fallback: true,
