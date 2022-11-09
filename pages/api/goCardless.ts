@@ -1,7 +1,8 @@
 const gocardless = require('gocardless-nodejs');
 import type { NextApiRequest, NextApiResponse } from 'next';
-
+import dbConnect from '../../lib/dbConnect';
 const constants = require('gocardless-nodejs/constants');
+const Members = require('../../lib/models/member');
 
 const client = gocardless(
   process.env.GO_CARDLESS_ACCESS_TOKEN,
@@ -16,6 +17,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>,
 ) {
+  await dbConnect();
   /* get all active mandates */
   const instalmentSchedules = await client.mandates.list({
     status: 'active',
@@ -33,18 +35,27 @@ export default async function handler(
     }),
   );
 
+  console.log(instalmentSchedules);
+
   /* filter out unnecessary customer info*/
 
   const customerDetails = result.map((customer) => {
     return {
-      CGID: customer.id,
-      Fname: customer.given_name,
-      Lname: customer.family_name,
-      adress: `${customer.address_line1}, ${
+      active: true,
+      go_cardless_id: customer.id,
+      first_name: customer.given_name,
+      last_name: customer.family_name,
+      address: `${customer.address_line1}, ${
         customer.address_line2 || ''
       }`.trim(),
     };
   });
+
+  /*
+  await Members.insertMany(customerDetails).then((mongoRes: any) => {
+    res.status(200).json(mongoRes);
+  });
+*/
 
   /*
 	"id": "CU000E2STQHMFB",
