@@ -19,7 +19,7 @@ export default async function handler(
 ) {
   await dbConnect();
   /* get all active mandates */
-  const instalmentSchedules = await client.mandates.find({
+  const instalmentSchedules = await client.mandates.list({
     status: 'active',
   });
   /*get customer id from the mandates links array */
@@ -43,6 +43,7 @@ export default async function handler(
     return {
       active: true,
       go_cardless_id: customer.id,
+      email: customer.email,
       first_name: customer.given_name,
       last_name: customer.family_name,
       address: `${customer.address_line1}, ${
@@ -51,11 +52,11 @@ export default async function handler(
     };
   });
 
-  /*
-  await Members.insertMany(customerDetails).then((mongoRes: any) => {
-    res.status(200).json(mongoRes);
-  });
-*/
+  await Members.insertMany(customerDetails)
+    .then((mongoRes: any) => {
+      res.status(200).json(mongoRes);
+    })
+    .catch((err: any) => console.log(err));
 
   /*
 	"id": "CU000E2STQHMFB",
@@ -73,9 +74,6 @@ export default async function handler(
 */
 
   // const result = await Promise.all(activeCustomers);
-
-  // @ts-ignore
-  res.status(200).json(instalmentSchedules);
 }
 
 export {};

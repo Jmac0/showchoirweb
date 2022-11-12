@@ -12,13 +12,33 @@ const client = gocardless(
   // Change this to constants.Environments.Live when you're ready to go live
   constants.Environments.Sandbox,
 );
-const processMandate = async (events: [Mandate]) => {
-  const mandateId = events[0].links.mandate;
+const processEvents = async (event: Mandate) => {
+  switch (event.action) {
+    // handle canceled mandate
+    case 'cancelled':
+      // get the mandate id from the event
+      const mandateId = event.links.mandate;
+      // query Go Cardless for the mandate
+      const mandate = await client.mandates.find(mandateId);
+      // get Go Cardless customer ID from the mandate object
+      const customerId = mandate.links.customer;
+      // query Go Cardless for the actual customer details
+      const customer = await client.customers.find(customerId);
+      // Find and update the customer in Mongo, set active to false
+      const updatedMember = await Members.findOneAndUpdate(
+        { email: `${customer.email}` },
+        { active: false },
+      );
+      console.log(updatedMember);
+      break;
 
-  const mandate = await client.mandates.find(mandateId);
-  const customerId = mandate.links.customer;
-  const customerInfo = await client.customers.find(customerId);
-  console.log(customerInfo);
+    case 'created':
+      console.log('------- NEW CUSTOMER ----------');
+      console.log(event);
+      break;
+    default:
+      return console.log('Unknown event type');
+  }
 };
 
 // Handle the incoming Webhook and check its signature.
@@ -49,7 +69,11 @@ export default async function handler(
   const signature = req.headers['webhook-signature']?.toString();
   // check signature and if ok return array of events
   const checkSignature = parseEvents(body, signature);
-  checkSignature && processMandate(checkSignature);
+  // if array pass to event handler function
+  checkSignature &&
+    checkSignature.map((event: Mandate) => {
+      processEvents(event);
+    });
 
   res.status(200).json('ok');
 }
