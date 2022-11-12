@@ -19,7 +19,7 @@ export default async function handler(
 ) {
   await dbConnect();
   /* get all active mandates */
-  const instalmentSchedules = await client.mandates.list({
+  const instalmentSchedules = await client.mandates.find({
     status: 'active',
   });
   /*get customer id from the mandates links array */
@@ -75,7 +75,7 @@ export default async function handler(
   // const result = await Promise.all(activeCustomers);
 
   // @ts-ignore
-  res.status(200).json(customerDetails);
+  res.status(200).json(instalmentSchedules);
 }
 
 export {};
