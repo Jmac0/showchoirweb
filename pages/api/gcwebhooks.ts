@@ -2,46 +2,61 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 const webhooks = require('gocardless-nodejs/webhooks');
 import { buffer } from 'micro';
 import dbConnect from '../../lib/dbConnect';
-import { Mandate } from '../../types';
-const gocardless = require('gocardless-nodejs');
+import { MandateType, MemberType } from '../../types';
+import { getCustomerFromGoCardless } from './helpers/getCutomerGoCardless';
 const webhookEndpointSecret = process.env.GC_WEBHOOK_SECRET;
-const constants = require('gocardless-nodejs/constants');
+// @ts-ignore
 const Members = require('../../lib/models/member');
-const client = gocardless(
-  process.env.GO_CARDLESS_ACCESS_TOKEN,
-  // Change this to constants.Environments.Live when you're ready to go live
-  constants.Environments.Sandbox,
-);
 
-const processEvents = async (event: Mandate) => {
+const processEvents = async (event: MandateType) => {
   await dbConnect();
   switch (event.action) {
     //** handle canceled mandate **//
     case 'cancelled':
-      // get the mandate id from the event
-      const mandateId = event.links.mandate;
-      // query Go Cardless for the mandate
-      const mandate = await client.mandates.find(mandateId);
-      // get Go Cardless customer ID from the mandate object
-      const customerId = mandate.links.customer;
-      // query Go Cardless for the actual customer details
-      const customer = await client.customers.find(customerId);
+      // get details of customer from go cardless
+      const canceledCustomer = await getCustomerFromGoCardless(event);
       // Find and update the customer in Mongo, set active to false
       await Members.findOneAndUpdate(
-        { email: `${customer.email}` },
+        { email: `${canceledCustomer.email}` },
         { active: false },
       );
       break;
-
+    /*New customer sign up */
     case 'created':
       console.log('------- NEW CUSTOMER ----------');
-      console.log(event);
+      // get customer from Go Cardless
+      const newCustomer = await getCustomerFromGoCardless(event);
+      const addToDb: MemberType = {
+        active: true,
+        email: `${newCustomer.email}`,
+        go_cardless_id: `${newCustomer.id}`,
+        first_name: `${newCustomer.given_name}`,
+        last_name: `${newCustomer.family_name}`,
+        address: `${newCustomer.address_line1}, ${
+          newCustomer.address_line2 || ''
+        }`.trim(),
+      };
+      await Members.create(addToDb);
       break;
     default:
       return console.log('Unknown event type');
   }
 };
 
+/*
+ "id": "CU000E2STQHMFB",
+ "created_at": "2020-12-05T21:49:58.281Z",
+ "email": "rudymcblowhard@gmail.com",
+ "given_name": "Rudy",
+ "family_name": "McBlowhard",
+ "company_name": null,
+ "address_line1": "Flat 11, Norfolk Mews",
+ "address_line2": "140A South Street",
+ "address_line3": null,
+ "city": "Dorking",
+ "region": null,
+ "postal_code": "RH4 2EX",
+ */
 // Handle the incoming Webhook and check its signature.
 const parseEvents = (
   eventsRequestBody: any,
@@ -72,7 +87,7 @@ export default async function handler(
   const checkSignature = parseEvents(body, signature);
   // if array pass to event handler function
   checkSignature &&
-    checkSignature.map((event: Mandate) => {
+    checkSignature.map((event: MandateType) => {
       processEvents(event);
     });
 

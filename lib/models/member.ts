@@ -1,15 +1,7 @@
 import mongoose from 'mongoose';
+import { MemberType } from '../../types';
 
-type Members = {
-  active: boolean;
-  email: string;
-  go_cardless_id: string;
-  first_name: string;
-  last_name: string;
-  address: string;
-};
-
-const MembersSchema = new mongoose.Schema<Members>({
+const MembersSchema = new mongoose.Schema<MemberType>({
   active: Boolean,
   email: String,
   go_cardless_id: String,
