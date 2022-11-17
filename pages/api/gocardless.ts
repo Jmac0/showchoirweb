@@ -9,13 +9,10 @@ const client = gocardless(
   // Change this to constants.Environments.Live when you're ready to go live
   constants.Environments.Sandbox,
 );
-type Data = {
-  name: string;
-};
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>,
+  res: NextApiResponse,
 ) {
   await dbConnect();
   /* get all active mandates */
@@ -35,7 +32,7 @@ export default async function handler(
     }),
   );
 
-  console.log(instalmentSchedules);
+  // console.log(instalmentSchedules);
 
   /* filter out unnecessary customer info*/
 
@@ -58,6 +55,7 @@ export default async function handler(
     })
     .catch((err: any) => console.log(err));
 
+  // res.status(200).json(customerDetails);
   /*
 	"id": "CU000E2STQHMFB",
 		"created_at": "2020-12-05T21:49:58.281Z",

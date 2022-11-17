@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 const webhooks = require('gocardless-nodejs/webhooks');
 import { buffer } from 'micro';
+import dbConnect from '../../lib/dbConnect';
 import { Mandate } from '../../types';
 const gocardless = require('gocardless-nodejs');
 const webhookEndpointSecret = process.env.GC_WEBHOOK_SECRET;
-import dbConnect from '../../lib/dbConnect';
 const constants = require('gocardless-nodejs/constants');
 const Members = require('../../lib/models/member');
 const client = gocardless(
@@ -12,9 +12,11 @@ const client = gocardless(
   // Change this to constants.Environments.Live when you're ready to go live
   constants.Environments.Sandbox,
 );
+
 const processEvents = async (event: Mandate) => {
+  await dbConnect();
   switch (event.action) {
-    // handle canceled mandate
+    //** handle canceled mandate **//
     case 'cancelled':
       // get the mandate id from the event
       const mandateId = event.links.mandate;
@@ -25,11 +27,10 @@ const processEvents = async (event: Mandate) => {
       // query Go Cardless for the actual customer details
       const customer = await client.customers.find(customerId);
       // Find and update the customer in Mongo, set active to false
-      const updatedMember = await Members.findOneAndUpdate(
+      await Members.findOneAndUpdate(
         { email: `${customer.email}` },
         { active: false },
       );
-      console.log(updatedMember);
       break;
 
     case 'created':
