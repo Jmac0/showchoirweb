@@ -11,7 +11,7 @@ export default async function handler(
   await dbConnect();
   const results = await Members.find({});
 
-  console.log(results);
+  console.log(results + 'hello');
 
   res.status(200).json({ results });
 }

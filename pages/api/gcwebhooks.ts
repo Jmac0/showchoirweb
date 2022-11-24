@@ -10,54 +10,36 @@ const Members = require('../../lib/models/member');
 
 const processEvents = async (event: MandateType) => {
   await dbConnect();
+
+  console.log(event);
+  // get details of customer from go cardless
+  const customer: MemberType = await getCustomerFromGoCardless(event);
+  console.log(customer)
   switch (event.action) {
     //** handle canceled mandate **//
     case 'cancelled':
-      // get details of customer from go cardless
-      const canceledCustomer = await getCustomerFromGoCardless(event);
-      // Find and update the customer in Mongo, set active to false
       await Members.findOneAndUpdate(
-        { email: `${canceledCustomer.email}` },
+        { email: `${customer.email}` },
         { active: false },
-      );
+      )
+        .then((res: MemberType) => {
+          console.log(res);
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
       break;
-    /*New customer sign up */
+    /*Handle new customer sign up */
     case 'created':
-      console.log('------- NEW CUSTOMER ----------');
-      // get customer from Go Cardless
-      const newCustomer = await getCustomerFromGoCardless(event);
-      const addToDb: MemberType = {
-        active: true,
-        email: `${newCustomer.email}`,
-        go_cardless_id: `${newCustomer.id}`,
-        first_name: `${newCustomer.given_name}`,
-        last_name: `${newCustomer.family_name}`,
-        address: `${newCustomer.address_line1}, ${
-          newCustomer.address_line2 || ''
-        }`.trim(),
-      };
-      await Members.create(addToDb);
+      const newMember = await Members.create(customer);
+      console.log(newMember);
       break;
     default:
       return console.log('Unknown event type');
   }
 };
 
-/*
- "id": "CU000E2STQHMFB",
- "created_at": "2020-12-05T21:49:58.281Z",
- "email": "rudymcblowhard@gmail.com",
- "given_name": "Rudy",
- "family_name": "McBlowhard",
- "company_name": null,
- "address_line1": "Flat 11, Norfolk Mews",
- "address_line2": "140A South Street",
- "address_line3": null,
- "city": "Dorking",
- "region": null,
- "postal_code": "RH4 2EX",
- */
-// Handle the incoming Webhook and check its signature.
+// Handle the coming Webhook and check its signature.
 const parseEvents = (
   eventsRequestBody: any,
   signatureHeader: any, // From webhook header
@@ -74,7 +56,6 @@ const parseEvents = (
     }
   }
 };
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,

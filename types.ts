@@ -12,9 +12,12 @@ export type MandateType = {
 };
 export type MemberType = {
   active: boolean;
+  mandate?: string;
+  memberOption: string;
   email: string;
   go_cardless_id: string;
   first_name: string;
   last_name: string;
   address: string;
+  address_line2?: string;
 };
