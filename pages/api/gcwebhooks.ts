@@ -14,7 +14,7 @@ const processEvents = async (event: MandateType) => {
   console.log(event);
   // get details of customer from go cardless
   const customer: MemberType = await getCustomerFromGoCardless(event);
-  console.log(customer)
+  console.log(customer);
   switch (event.action) {
     //** handle canceled mandate **//
     case 'cancelled':

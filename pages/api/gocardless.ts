@@ -15,27 +15,40 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   await dbConnect();
-  /* get all active mandates */
-  const instalmentSchedules = await client.mandates.list({
+const redirectFlow = await client.redirectFlows.create({
+  description: "Show Choir",
+  session_token: "TK12pis3,
+  success_redirect_url: "https://www.show-choir.co.uk",
+  prefilled_customer: {
+    given_name: "Mike",
+    family_name: "Strutter",
+    email: "frank.osborne@acmeplc.com"
+  }
+});
+  // get all active mandates 
+/*   const instalmentSchedules = await client.mandates.list({
     status: 'active',
   });
-  /*get customer id from the mandates links array */
+  //get customer id from the mandates links array 
   const customers = instalmentSchedules.mandates.map(
     (m: { links: { customer: any } }) => {
       return m.links.customer;
     },
   );
-  /* retrieve customer details for each active mandate*/
+
+  */
+  // retrieve customer details for each Factive mandate
+ /* 
   const result = await Promise.all(
     customers.map((customer: string) => {
       return client.customers.find(customer);
     }),
   );
-
+*/
   // console.log(instalmentSchedules);
 
-  /* filter out unnecessary customer info*/
-
+  // filter out unnecessary customer info
+/* 
   const customerDetails = result.map((customer) => {
     return {
       active: true,
@@ -55,7 +68,6 @@ export default async function handler(
     })
     .catch((err: any) => console.log(err));
 
-  // res.status(200).json(customerDetails);
   /*
 	"id": "CU000E2STQHMFB",
 		"created_at": "2020-12-05T21:49:58.281Z",
@@ -71,7 +83,8 @@ export default async function handler(
 		"postal_code": "RH4 2EX",
 */
 
-  // const result = await Promise.all(activeCustomers);
+ //const result = await Promise.all(activeCustomers);
+   res.status(200).json(redirectFlow);
 }
 
 export {};

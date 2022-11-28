@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import ReactMarkdown from 'react-markdown';
+import { formatOptions } from '../lib/toReactComponent';
 import { getPageData } from '../lib/getPages';
 import Head from 'next/head';
 import { Nav } from '../components/Nav';
@@ -10,11 +14,21 @@ type Props = {
 };
 
 export default function Slug({ currentPage, pathData }: Props) {
-  const { title } = currentPage;
+  const router = useRouter();
+  const { title, content, flexiInfo } = currentPage;
+  const [bodyTxt, setBodyTxt] = useState('');
+
+  // convert contentful object to html rich text
+  // @ts-ignore
+  const bodyHtml = documentToReactComponents(content, formatOptions);
+  useEffect(() => {
+    // set body text in here to solve hydration issue
+    setBodyTxt(bodyHtml as any);
+  }, []);
   return (
-    <>
+    <div className="flex flex-col h-screen">
       <Head>
-        <title>{}</title>
+        <title>{title}</title>
         <meta
           name="description"
           content="Show Choir Surrey's premier musical theatre choir"
@@ -22,10 +36,20 @@ export default function Slug({ currentPage, pathData }: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Nav pathData={pathData} />
-      <main>{title}</main>
+      <main className=" h-3/4 flex flex-col items-center  bg-amber-50">
+        {title}
+        {router.query.slug === 'show-choir-membership' ? (
+          <div>
+            {bodyTxt}
+            <ReactMarkdown>{flexiInfo}</ReactMarkdown>
+          </div>
+        ) : (
+          <p>Not Member page</p>
+        )}
+      </main>
 
       <Footer />
-    </>
+    </div>
   );
 }
 
@@ -33,6 +57,7 @@ export async function getStaticPaths() {
   const res = await getPageData();
   const { items } = res;
   // an array of strings
+
   const paths = items.map((item: { fields: { slug: string } }) => {
     return { params: { slug: item.fields.slug } };
   });

@@ -49,7 +49,7 @@ const Home: NextPage<Props> = ({ title, content, pathData }) => {
   }, []);
 
   return (
-    <div className="container flex flex-col h-screen mx-auto">
+    <div className="flex flex-col w-full h-screen ">
       <Head>
         <title>{title}</title>
         <meta
@@ -60,9 +60,7 @@ const Home: NextPage<Props> = ({ title, content, pathData }) => {
       </Head>
       <Nav pathData={pathData} />
 
-      <main
-        className={`container mx-auto h-3/4 mx-auto flex flex-col items-center bg-amber-50`}
-      >
+      <main className={` h-3/4 w-full flex flex-col items-center bg-amber-50`}>
         {bodyTxt}
       </main>
       <Footer />
