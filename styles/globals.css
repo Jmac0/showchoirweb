@@ -4,19 +4,35 @@
 @tailwind components;
 @tailwind utilities;
 
-body {  background-color: rgba(32,33,36, 100) }
-
+body {
+  background-color: rgba(32, 33, 36, 100);
+}
 
 p {
-    @apply leading-7
+  @apply leading-7;
 }
 
 ul {
-
-    @apply list-disc list-inside
+  @apply flex flex-col list-disc list-inside items-start mb-6;
 }
 
+li {
+  @apply mt-3;
+}
 
 h1 {
-    @apply text-gold text-4xl pt-7 font-heading pb-5
+  @apply text-gold text-4xl pt-7 font-heading;
+}
+
+h2 {
+  @apply text-gold text-2xl pt-7 font-heading pb-5;
+}
+/* styling for membership boxes */
+@layer components {
+  .MembershipOptionsInfo > h1 {
+    @apply text-lightBlack self-center
+  }
+
+  .MembershipOptionsInfo > h2 {@apply text-lightBlack}
+  .MembershipOptionsInfo > p {}
 }

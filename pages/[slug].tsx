@@ -1,32 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import ReactMarkdown from 'react-markdown';
 import { formatOptions } from '../lib/toReactComponent';
 import { getPageData } from '../lib/getPages';
 import Head from 'next/head';
 import { Nav } from '../components/Nav';
 import { Footer } from '../components/Footer';
+import { MembershipOptionInfo } from './../components/MembershipOptionInfo';
 
 type Props = {
   pathData: [{ slug: string; displayText: string; order: number }];
   currentPage: any;
 };
 
+
 export default function Slug({ currentPage, pathData }: Props) {
   const router = useRouter();
-  const { title, content, flexiInfo } = currentPage;
+  const { title, content, flexiInfo, monthlyInfo } = currentPage;
   const [bodyTxt, setBodyTxt] = useState('');
-
   // convert contentful object to html rich text
   // @ts-ignore
   const bodyHtml = documentToReactComponents(content, formatOptions);
   useEffect(() => {
     // set body text in here to solve hydration issue
     setBodyTxt(bodyHtml as any);
-  }, []);
+}, []);
+
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col w-full h-screen">
       <Head>
         <title>{title}</title>
         <meta
@@ -36,18 +37,18 @@ export default function Slug({ currentPage, pathData }: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Nav pathData={pathData} />
-      <main className=" h-3/4 flex flex-col items-center  bg-amber-50">
-        {title}
-        {router.query.slug === 'show-choir-membership' ? (
-          <div>
-            {bodyTxt}
-            <ReactMarkdown>{flexiInfo}</ReactMarkdown>
+      <main className={`w-screen flex p-2.5 flex-col items-center bg-amber-50`}>
+		<div className='flex flex-col w-9/12 text-center pb-10'>
+        {bodyTxt}
+			</div>
+        {flexiInfo && (
+          <div className="flex flex-col flex-wrap w-screen items-center justify-center md:h-3/4 md:flex-row">
+            <MembershipOptionInfo markdown={flexiInfo} />
+            <MembershipOptionInfo markdown={monthlyInfo} />
+            <MembershipOptionInfo markdown={flexiInfo} />
           </div>
-        ) : (
-          <p>Not Member page</p>
         )}
       </main>
-
       <Footer />
     </div>
   );
