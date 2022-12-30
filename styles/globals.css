@@ -32,6 +32,7 @@ h2 {
   .MembershipOptionsInfo > h1 {
     @apply text-lightBlack self-center
   }
+  }
 
   .MembershipOptionsInfo > h2 {@apply text-lightBlack}
   .MembershipOptionsInfo > p {}
