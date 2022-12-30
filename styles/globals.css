@@ -30,9 +30,10 @@ h2 {
 /* styling for membership boxes */
 @layer components {
   .MembershipOptionsInfo > h1 {
-    @apply text-lightBlack self-center
+    @apply text-lightBlack self-center;
   }
-  }
+}
 
-  .MembershipOptionsInfo > h2 {@apply text-lightBlack}
-  .MembershipOptionsInfo > p {}
+.MembershipOptionsInfo > h2 {
+  @apply text-lightBlack;
+}
