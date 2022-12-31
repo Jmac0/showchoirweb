@@ -38,7 +38,7 @@ export default function Slug({ currentPage, pathData }: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Nav pathData={pathData} />
-      <main className={`w-screen flex p-2.5 flex-col items-center bg-amber-50`}>
+      <main className={`w-screen flex p-2.5 flex-col items-center bg-transparent`}>
 		<div className='flex flex-col w-9/12 text-center pb-10'>
         {bodyTxt}
 			</div>

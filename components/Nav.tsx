@@ -28,7 +28,7 @@ export function Nav({ pathData }: Props) {
   const menuItems = sortedItems.map(
     (item: { slug: string; displayText: string }) => (
       <Link key={item.slug} href={item.slug}>
-        <a className="text-lightBlack mb-10 font-heading px-3 hover:underline md:mb-0 hover:text-gray-600 text-2xl">
+        <a className="text-white mb-10 font-heading px-3 md:mb-0 hover:text-gray-600 text-2xl">
           {item.displayText}
         </a>
       </Link>
@@ -44,7 +44,7 @@ export function Nav({ pathData }: Props) {
       >
         <div className="flex flex-col pl-16  mt-36">
           <Link href="/">
-            <a className="mb-10 text-lightBlack font-heading px-3 hover:underline hover:text-gray-600 text-2xl ">
+            <a className="mb-10 text-white font-heading px-3  hover:text-gray-600 text-2xl ">
               Home
             </a>
           </Link>
@@ -62,9 +62,9 @@ export function Nav({ pathData }: Props) {
       ></div>
       <nav>
         {/*desktop nav container*/}
-        <div className="flex justify-start pl-6 h-16 from-lightGold flex-row w-full md:justify-center items-center bg-gradient-to-b to-gold md:h-28">
+        <div className="flex bg-transparent -100 justify-start pl-6 h-16  flex-row w-full md:justify-start items-center  md:h-28">
           <Link href="/">
-            <a className="hidden text-lightBlack font-heading px-3 hover:underline hover:text-gray-600 text-2xl md:inline-block">
+            <a className="hidden text-white font-heading px-3 hover:underline hover:text-gray-600 text-2xl md:inline-block">
               Home
             </a>
           </Link>
@@ -76,17 +76,17 @@ export function Nav({ pathData }: Props) {
             onClick={handleClick}
           >
             <div
-              className={`w-6 h-1 bg-lightBlack rounded-full bg-lightBlack origin-left ${
+              className={`w-6 h-1 bg-lightBlack rounded-full  origin-left ${
                 open ? 'rotate-45 w-[23px]' : 'rotate-0'
               } transition-all`}
             />
             <div
-              className={`w-6 h-1 bg-lightBlack rounded-full bg-lightBlack origin-left ${
+              className={`w-6 h-1 bg-lightBlack rounded-full  origin-left ${
                 open && 'bg-transparent'
               } transition-all`}
             />
             <div
-              className={`w-6 h-1 bg-lightBlack rounded-full bg-lightBlack origin-left ${
+              className={`w-6 h-1 bg-lightBlack rounded-full  origin-left ${
                 open ? '-rotate-45 w-[23px]' : 'rotate-0'
               } transition-all`}
             />

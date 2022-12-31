@@ -5,11 +5,11 @@
 @tailwind utilities;
 
 body {
-  background-color: rgba(32, 33, 36, 100);
+  background-color: #000000;
 }
 
 p {
-  @apply leading-7;
+  @apply leading-7 text-white;
 }
 
 ul {
@@ -17,7 +17,7 @@ ul {
 }
 
 li {
-  @apply mt-3;
+  @apply mt-3 text-white;
 }
 
 h1 {
