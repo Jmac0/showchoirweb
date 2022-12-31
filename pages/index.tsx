@@ -1,5 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import Image from 'next/image';
+import heroImage from './../public/brollies.png';
 import { useEffect, useState } from 'react';
 import { getHomePageData, getPageData } from '../lib/getPages';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
@@ -60,6 +62,10 @@ const Home: NextPage<Props> = ({ title, content, pathData }) => {
       </Head>
       <Nav pathData={pathData} />
 
+	  <section className="absolute -z-10 flex w-1/2">
+
+		<Image src={heroImage} />
+	  </section>
       <main className={` h-3/4 w-full flex flex-col items-center bg-transparent`}>
         {bodyTxt}
       </main>
