@@ -28,7 +28,7 @@ export function Nav({ pathData }: Props) {
   const menuItems = sortedItems.map(
     (item: { slug: string; displayText: string }) => (
       <Link key={item.slug} href={item.slug}>
-        <a className="text-white mb-10 font-heading px-3 md:mb-0 hover:text-gray-600 text-2xl">
+        <a className="text-white mb-10 font-heading px-3 md:mb-0 hover:text-gray-600 text-1xl">
           {item.displayText}
         </a>
       </Link>
@@ -64,7 +64,7 @@ export function Nav({ pathData }: Props) {
         {/*desktop nav container*/}
         <div className="flex bg-transparent -100 justify-start pl-6 h-16  flex-row w-full md:justify-start items-center  md:h-28">
           <Link href="/">
-            <a className="hidden text-white font-heading px-3 hover:underline hover:text-gray-600 text-2xl md:inline-block">
+            <a className="hidden text-white font-heading px-3  hover:text-gray-600 text-1xl md:inline-block">
               Home
             </a>
           </Link>
