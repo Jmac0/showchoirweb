@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import heroImage from './../public/brollies.png';
+import logo from './../public/logo.png';
 import { useEffect, useState } from 'react';
 import { getHomePageData, getPageData } from '../lib/getPages';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
@@ -60,12 +61,9 @@ const Home: NextPage<Props> = ({ title, content, pathData }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Nav pathData={pathData} />
-
-      <section className="absolute -z-10 flex w-2/3">
-        <Hero bgImage={heroImage} />
-      </section>
+      <Hero bgImage={heroImage} logo={logo} />
       <main
-        className={` h-3/4 w-full flex flex-col items-center bg-transparent`}
+        className={` h-full w-full flex flex-col items-center bg-transparent`}
       >
         {bodyTxt}
       </main>
