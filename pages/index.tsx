@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
 import heroImage from './../public/brollies.png';
 import { useEffect, useState } from 'react';
 import { getHomePageData, getPageData } from '../lib/getPages';
@@ -8,7 +7,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { formatOptions } from '../lib/toReactComponent';
 import { Nav } from '../components/Nav';
 import { Footer } from '../components/Footer';
-
+import Hero from '../components/Hero';
 export async function getStaticProps() {
   const homePageData = await getHomePageData();
   const {
@@ -62,11 +61,12 @@ const Home: NextPage<Props> = ({ title, content, pathData }) => {
       </Head>
       <Nav pathData={pathData} />
 
-	  <section className="absolute -z-10 flex w-1/2">
-
-		<Image src={heroImage} />
-	  </section>
-      <main className={` h-3/4 w-full flex flex-col items-center bg-transparent`}>
+      <section className="absolute -z-10 flex w-2/3">
+        <Hero bgImage={heroImage} />
+      </section>
+      <main
+        className={` h-3/4 w-full flex flex-col items-center bg-transparent`}
+      >
         {bodyTxt}
       </main>
       <Footer />
