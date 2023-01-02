@@ -61,11 +61,11 @@ const Home: NextPage<Props> = ({ title, content, pathData }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Nav pathData={pathData} />
-      <Hero bgImage={heroImage} logo={logo} />
+      <Hero bgImage={heroImage} logo={logo} heroText={bodyTxt} />
       <main
         className={` h-full w-full flex flex-col items-center bg-transparent`}
       >
-        {bodyTxt}
+    
       </main>
       <Footer />
     </div>
