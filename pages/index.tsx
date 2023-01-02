@@ -60,13 +60,13 @@ const Home: NextPage<Props> = ({ title, content, pathData }) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Nav pathData={pathData} />
+      <div className="z-50">
+        <Nav pathData={pathData} />
+      </div>
       <Hero bgImage={heroImage} logo={logo} heroText={bodyTxt} />
       <main
         className={` h-full w-full flex flex-col items-center bg-transparent`}
-      >
-    
-      </main>
+      ></main>
       <Footer />
     </div>
   );
