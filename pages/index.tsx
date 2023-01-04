@@ -41,6 +41,7 @@ type Props = {
   pathData: [{ slug: string; displayText: string; order: number }];
 };
 const Home: NextPage<Props> = ({ title, content, pathData }) => {
+console.log('hello')
   const [bodyTxt, setBodyTxt] = useState('');
   // convert contentful object to html rich text
   // @ts-ignore
@@ -49,7 +50,6 @@ const Home: NextPage<Props> = ({ title, content, pathData }) => {
     // set body text in here to solve hydration issue
     setBodyTxt(bodyHtml as any);
   }, []);
-
 
   return (
     <div className="flex flex-col w-full h-screen ">
