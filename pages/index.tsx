@@ -50,6 +50,7 @@ const Home: NextPage<Props> = ({ title, content, pathData }) => {
     setBodyTxt(bodyHtml as any);
   }, []);
 
+
   return (
     <div className="flex flex-col w-full h-screen ">
       <Head>
