@@ -20,9 +20,7 @@ export function Hero({ bgImage, logo, heroText }: Props) {
       <div className="hidden md:block md:pt-32 md:pr-16 md:w-96">
         <Image src={logo} />;
       </div>
-      <div className="z-50 absolute">
         <BookTasterForm />
-      </div>
     </section>
   );
 }

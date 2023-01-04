@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 
 const BookTasterFrom: React.FC = () => {
   const [formState, setFormState] = useState({
-    name: '',
+    Fname: '',
+    Lname: '',
     email: '',
     option: '',
   });
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement >) => {
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = event.target;
     setFormState({
       ...formState,
@@ -21,31 +24,50 @@ const BookTasterFrom: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}
-	  className='z-50'
+    <form
+      className="absolute flex flex-col left-2/4 top-2/3 bg-black/75 border-2 rounded-md border-lightGold  p-10 w-5/12 h-72 justify-evenly text-gray-50 "
+      onSubmit={handleSubmit}
+    >
+      <div className="flex flex-row">
+        <label className="w-32" htmlFor="fname">
+          First name:
+        </label>
+        <input
+          type="text"
+          id="first_name"
+          name="Fname"
+          value={formState.Fname}
+          onChange={handleInputChange}
+        />
+      </div>
 
-	>
-      <label htmlFor="name">Name:</label>
-      <input
-	  className='z-50'
-        type="text"
-        id="name"
-        name="name"
-        value={formState.name}
-        onChange={handleInputChange}
-      />
-      <label htmlFor="email">Email:</label>
-      <input
-	  className='z-50'
-        type="email"
-        id="email"
-        name="email"
-        value={formState.email}
-        onChange={handleInputChange}
-      />
+      <div className="flex flex-row">
+        <label className="w-32" htmlFor="last_name">
+          Last name:
+        </label>
+        <input
+          type="text"
+          id="last_name"
+          name="Lname"
+          value={formState.Lname}
+          onChange={handleInputChange}
+        />
+      </div>
+
+      <div className="flex flex-row">
+        <label className="w-32" htmlFor="email">
+          Email:
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formState.email}
+          onChange={handleInputChange}
+        />
+      </div>
       <label htmlFor="option">Option:</label>
       <select
-	  className='z-50'
         id="option"
         name="option"
         value={formState.option}
@@ -64,4 +86,3 @@ const BookTasterFrom: React.FC = () => {
 };
 
 export default BookTasterFrom;
-
