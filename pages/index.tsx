@@ -8,7 +8,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { formatOptions } from '../lib/toReactComponent';
 import { Nav } from '../components/Nav';
 import { Footer } from '../components/Footer';
-import Hero from '../components/Hero';
+import {Hero} from '../components/Hero';
 export async function getStaticProps() {
   const homePageData = await getHomePageData();
   const {
@@ -41,7 +41,6 @@ type Props = {
   pathData: [{ slug: string; displayText: string; order: number }];
 };
 const Home: NextPage<Props> = ({ title, content, pathData }) => {
-console.log('hello')
   const [bodyTxt, setBodyTxt] = useState('');
   // convert contentful object to html rich text
   // @ts-ignore

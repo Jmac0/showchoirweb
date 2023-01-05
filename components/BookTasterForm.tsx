@@ -1,13 +1,25 @@
 import React, { useState } from 'react';
-
+import useHttp from './hooks/useHttp';
+type FormState = {
+  Fname: string;
+  Lname: string;
+  email: string;
+  option: string;
+};
 const BookTasterFrom: React.FC = () => {
-  const [formState, setFormState] = useState({
+  const initailFormState: FormState = {
     Fname: '',
     Lname: '',
     email: '',
     option: '',
-  });
+  };
+  const [formState, setFormState] = useState<FormState>(initailFormState);
 
+  const { loading, setLoading, sendRequest } = useHttp({
+    url: '/api/mailchimpAddProspect',
+    method: 'POST',
+    withCredentials: false,
+  });
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -20,21 +32,25 @@ const BookTasterFrom: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(formState);
+    sendRequest(formState);
+    setFormState(initailFormState);
   };
 
   return (
     <form
-      className="absolute flex flex-col left-2/4 top-2/3 bg-black/75 border-2 rounded-md border-lightGold  p-10 w-5/12 h-72 justify-evenly text-gray-50 "
+      className="absolute flex flex-col right-20 bottom-0 mb-3 mr-3 bg-black/75 border-2 rounded-md border-lightGold  
+	  p-2 pl-5 w-1/3 h-72 justify-evenly text-gray-50  "
       onSubmit={handleSubmit}
     >
+      <h1 className="pt-1 pb-2">Book Your Free Taster</h1>
       <div className="flex flex-row">
-        <label className="w-32" htmlFor="fname">
+        <label className="w-32" htmlFor="Fname">
           First name:
         </label>
         <input
+          className="text-black"
           type="text"
-          id="first_name"
+          id="Fname"
           name="Fname"
           value={formState.Fname}
           onChange={handleInputChange}
@@ -46,6 +62,7 @@ const BookTasterFrom: React.FC = () => {
           Last name:
         </label>
         <input
+          className="text-black"
           type="text"
           id="last_name"
           name="Lname"
@@ -59,6 +76,7 @@ const BookTasterFrom: React.FC = () => {
           Email:
         </label>
         <input
+          className="text-black"
           type="email"
           id="email"
           name="email"
@@ -66,21 +84,32 @@ const BookTasterFrom: React.FC = () => {
           onChange={handleInputChange}
         />
       </div>
-      <label htmlFor="option">Option:</label>
-      <select
-        id="option"
-        name="option"
-        value={formState.option}
-        onChange={handleInputChange}
+      <div className="flex flex-row">
+        <label className="w-32" htmlFor="option">
+          Location:
+        </label>
+        <select
+          className="w-48 text-black"
+          id="option"
+          name="option"
+          value={formState.option}
+          onChange={handleInputChange}
+        >
+          <option value="">Choose a choir</option>
+          <option value="option1">Option 1</option>
+          <option value="option2">Option 2</option>
+          <option value="option3">Option 3</option>
+          <option value="option4">Option 4</option>
+          <option value="option5">Option 5</option>
+        </select>
+      </div>
+      <button
+        className="w-1/3 h-10 ml-32 rounded-md border-lightGoldmd bg-transparent border-2 border-lightGold 
+		hover:bg-lightGold hover:text-black transition-colors duration-500"
+        type="submit"
       >
-        <option value="">-- Please choose an option --</option>
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
-        <option value="option4">Option 4</option>
-        <option value="option5">Option 5</option>
-      </select>
-      <button type="submit">Submit</button>
+        BOOK NOW
+      </button>
     </form>
   );
 };
