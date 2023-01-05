@@ -9,20 +9,19 @@ type Props = {
 
 export function Hero({ bgImage, logo, heroText }: Props) {
   return (
-    <section className="absolute flex flex-row">
+    <section className="absolute flex flex-row border-2 border-red-400">
       {/* hero text block */}
-      <div className="absolute z-10 md:top-2/3 md:left-32">{heroText}</div>
+      <div className="absolute z-10 md:bottom-6  md:left-16 p-2 pl-5 w-5/12 h-72">{heroText}</div>
       {/* hero image  */}
       <div className="w-full md:w-3/4">
         <Image src={bgImage} />
       </div>
       {/*  Logo  */}
-      <div className="hidden md:block md:pt-32 md:pr-16 md:w-96">
+      <div className="hidden absolute md:block  md:right-20 md:top-20 md:w-96">
         <Image src={logo} />;
       </div>
+
         <BookTasterForm />
     </section>
   );
 }
-
-export default Hero;
