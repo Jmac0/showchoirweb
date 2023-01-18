@@ -1,13 +1,25 @@
 import React, { useState } from 'react';
-
+import useHttp from './hooks/useHttp';
+type FormState = {
+  Fname: string;
+  Lname: string;
+  email: string;
+  option: string;
+};
 const BookTasterFrom: React.FC = () => {
-  const [formState, setFormState] = useState({
+  const initailFormState: FormState = {
     Fname: '',
     Lname: '',
     email: '',
     option: '',
-  });
+  };
+  const [formState, setFormState] = useState<FormState>(initailFormState);
 
+  const { loading, setLoading, sendRequest } = useHttp({
+    url: '/api/mailchimpAddProspect',
+    method: 'POST',
+    withCredentials: false,
+  });
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -20,7 +32,8 @@ const BookTasterFrom: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(formState);
+    sendRequest(formState);
+    setFormState(initailFormState);
   };
 
   return (
@@ -36,7 +49,7 @@ const BookTasterFrom: React.FC = () => {
         </label>
         <input
           className="text-black"
-          type="email"
+          type="text"
           id="Fname"
           name="Fname"
           value={formState.Fname}
