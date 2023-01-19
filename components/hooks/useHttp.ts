@@ -24,7 +24,7 @@ function useHttp(requestConfig: RequestConfig) {
     await axios({
       method: requestConfig.method ? requestConfig.method : 'GET',
       url: `${baseURL}/${requestConfig.url}`,
-      data: body,
+      data: JSON.stringify( body),
       headers: {
         Authorization: `Bearer ${requestConfig.token || ''} `,
         Accept: 'application/json',
@@ -33,26 +33,33 @@ function useHttp(requestConfig: RequestConfig) {
       withCredentials: requestConfig.withCredentials,
     })
       .then((response) => {
- console.log(response)
-		  // set message info
+        console.log(response);
+        // set message info
         // setMessage({
         //   isErrorMessage: false,
         //   showUserMessage: true,
         //   message: response.data.message,
         // });
-        setLoading(false);
+		setLoading(true)
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
+
         // callback from hook call
         if (callback) callback(response.data);
       })
 
       .catch((err) => {
-        console.log(err)
-		  // setMessage({
+        console.log(err);
+        // setMessage({
         //   isErrorMessage: true,
         //   showUserMessage: true,
         //   message: err.response.data.message,
         // });
-        setLoading(false);
+		setLoading(true)
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
       });
   };
   // add  message, setMessage, back to export

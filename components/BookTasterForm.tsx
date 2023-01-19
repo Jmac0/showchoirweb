@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import useHttp from './hooks/useHttp';
+import { LoadingBtn } from './LoadingBtn/LoadingBtn';
 type FormState = {
-  Fname: string;
-  Lname: string;
+  firstName: string;
+  lastName: string;
   email: string;
   option: string;
 };
 const BookTasterFrom: React.FC = () => {
   const initailFormState: FormState = {
-    Fname: '',
-    Lname: '',
+    firstName: '',
+    lastName: '',
     email: '',
     option: '',
   };
@@ -28,6 +29,7 @@ const BookTasterFrom: React.FC = () => {
       ...formState,
       [name]: value,
     });
+	console.log(formState)
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -50,9 +52,9 @@ const BookTasterFrom: React.FC = () => {
         <input
           className="text-black"
           type="text"
-          id="Fname"
-          name="Fname"
-          value={formState.Fname}
+          id="first_name"
+          name="firstName"
+          value={formState.firstName}
           onChange={handleInputChange}
         />
       </div>
@@ -65,8 +67,8 @@ const BookTasterFrom: React.FC = () => {
           className="text-black"
           type="text"
           id="last_name"
-          name="Lname"
-          value={formState.Lname}
+          name="lastName"
+          value={formState.lastName}
           onChange={handleInputChange}
         />
       </div>
@@ -103,13 +105,7 @@ const BookTasterFrom: React.FC = () => {
           <option value="option5">Option 5</option>
         </select>
       </div>
-      <button
-        className="w-1/3 h-10 ml-32 rounded-md border-lightGoldmd bg-transparent border-2 border-lightGold 
-		hover:bg-lightGold hover:text-black transition-colors duration-500"
-        type="submit"
-      >
-        BOOK NOW
-      </button>
+	<LoadingBtn text={"Book Now"} loading={loading} />
     </form>
   );
 };
