@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import { PillButton } from './../components/PillButton';
+import { PillButton } from './../components/PillButton/PillButton';
 
 type Props = {
   markdown: string;
