@@ -34,6 +34,7 @@ const BookTasterFrom: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+	setLoading(true)
     sendRequest(formState);
     setFormState(initailFormState);
   };

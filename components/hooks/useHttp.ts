@@ -24,7 +24,7 @@ function useHttp(requestConfig: RequestConfig) {
     await axios({
       method: requestConfig.method ? requestConfig.method : 'GET',
       url: `${baseURL}/${requestConfig.url}`,
-      data: JSON.stringify( body),
+      data: body,
       headers: {
         Authorization: `Bearer ${requestConfig.token || ''} `,
         Accept: 'application/json',
@@ -43,7 +43,7 @@ function useHttp(requestConfig: RequestConfig) {
 		setLoading(true)
         setTimeout(() => {
           setLoading(false);
-        }, 500);
+        }, 1500);
 
         // callback from hook call
         if (callback) callback(response.data);
@@ -59,7 +59,7 @@ function useHttp(requestConfig: RequestConfig) {
 		setLoading(true)
         setTimeout(() => {
           setLoading(false);
-        }, 500);
+        }, 1500);
       });
   };
   // add  message, setMessage, back to export
