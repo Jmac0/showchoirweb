@@ -7,6 +7,14 @@ mailchimp.setConfig({
   server: process.env.MAILCHIMP_SERVER_PREFIX,
 });
 
+
+type response = {
+userMessage: string,
+
+
+
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -15,7 +23,7 @@ export default async function handler(
   if (req.body.firstName === req.body.lastName) {
     res
       .status(400)
-      .json({ message: 'First name must be different from last name' });
+      .json({ userMessage: 'First name must be different from last name' });
     return;
   }
 
@@ -26,7 +34,7 @@ export default async function handler(
     );
     // check email validation score is OK
     if (Number(response.data.quality_score) < 0.7) {
-      res.status(400).json({ message: 'Email trust score too low' });
+      res.status(400).json({ userMessage: 'Email trust score too low' });
       return;
     }
   } catch (err) {
@@ -44,7 +52,7 @@ export default async function handler(
     })
     .then((response: any) => {
       // If email added OK send subscribed message back
-      res.status(200).json(response.status);
+      res.status(200).json({status: response.status, userMessage: 'your session is booked'});
     })
     .catch((err: any) => {
       // catch errors thrown by Mailchimp

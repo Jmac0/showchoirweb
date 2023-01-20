@@ -64,9 +64,6 @@ const Home: NextPage<Props> = ({ title, content, pathData }) => {
         <Nav pathData={pathData} />
       </div>
       <Hero bgImage={heroImage} logo={logo} heroText={bodyTxt} />
-      <main
-        className={` h-full w-full flex flex-col items-center bg-transparent`}
-      ></main>
       <Footer />
     </div>
   );

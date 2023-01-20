@@ -1,6 +1,6 @@
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
-import BookTasterForm from './BookTasterForm';
+import BookTasterForm from './BookTasterForm/BookTasterForm';
 type Props = {
   bgImage: StaticImageData;
   logo: StaticImageData;
@@ -9,7 +9,7 @@ type Props = {
 
 export function Hero({ bgImage, logo, heroText }: Props) {
   return (
-    <section className="absolute flex flex-row border-2 border-red-400">
+    <section className="top-0 left-0 flex flex-row border-2 border-red-400">
       {/* hero text block */}
       <div className="absolute z-10 md:bottom-6  md:left-16 p-2 pl-5 w-5/12 h-72">{heroText}</div>
       {/* hero image  */}

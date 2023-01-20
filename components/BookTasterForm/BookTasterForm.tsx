@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import useHttp from './hooks/useHttp';
-import { LoadingBtn } from './LoadingBtn/LoadingBtn';
+import React, { useEffect, useState } from 'react';
+import useHttp from '../hooks/useHttp';
+import { LoadingBtn } from '../LoadingBtn/LoadingBtn';
+import {UserMessage } from '../UserMessage/UserMessage'
 type FormState = {
   firstName: string;
   lastName: string;
@@ -16,11 +17,16 @@ const BookTasterFrom: React.FC = () => {
   };
   const [formState, setFormState] = useState<FormState>(initailFormState);
 
-  const { loading, setLoading, sendRequest } = useHttp({
+  const { loading, setLoading, sendRequest, message, setMessage } = useHttp({
     url: '/api/mailchimpAddProspect',
     method: 'POST',
     withCredentials: false,
   });
+useEffect(() => {
+
+  console.log(message.userMessage)
+
+	}, [message])
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -29,7 +35,6 @@ const BookTasterFrom: React.FC = () => {
       ...formState,
       [name]: value,
     });
-	console.log(formState)
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -42,12 +47,12 @@ const BookTasterFrom: React.FC = () => {
   return (
     <form
       className="absolute flex flex-col right-20 bottom-0 mb-3 mr-3 bg-black/75 border-2 rounded-md border-lightGold  
-	  p-2 pl-5 w-1/3 h-72 justify-evenly text-gray-50  "
+	  p-2 pl-5 w-1/3 h-80 justify-evenly text-gray-50  "
       onSubmit={handleSubmit}
     >
-      <h1 className="pt-1 pb-2">Book Your Free Taster</h1>
-      <div className="flex flex-row">
-        <label className="w-32" htmlFor="Fname">
+      <h1 className="pt-1 pb-1">Book Your Free Taster</h1>
+      <div className="flex flex-row my-2">
+        <label className="w-32" htmlFor="first_name">
           First name:
         </label>
         <input
@@ -60,7 +65,7 @@ const BookTasterFrom: React.FC = () => {
         />
       </div>
 
-      <div className="flex flex-row">
+      <div className="flex flex-row my-2">
         <label className="w-32" htmlFor="last_name">
           Last name:
         </label>
@@ -74,7 +79,7 @@ const BookTasterFrom: React.FC = () => {
         />
       </div>
 
-      <div className="flex flex-row">
+      <div className="flex flex-row my-2">
         <label className="w-32" htmlFor="email">
           Email:
         </label>
@@ -87,7 +92,7 @@ const BookTasterFrom: React.FC = () => {
           onChange={handleInputChange}
         />
       </div>
-      <div className="flex flex-row">
+      <div className="flex flex-row my-2">
         <label className="w-32" htmlFor="option">
           Location:
         </label>
@@ -107,6 +112,7 @@ const BookTasterFrom: React.FC = () => {
         </select>
       </div>
 	<LoadingBtn text={"Book Now"} loading={loading} />
+	<UserMessage message={message.userMessage} isError={message.isErrorMessage} showMessage={message.showUserMessage} />
     </form>
   );
 };
