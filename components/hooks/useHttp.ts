@@ -1,9 +1,8 @@
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { baseURL } from '../../lib/urls';
 //import { initialUserMessageState } from '../utils/initialStates';
-import { UserMessageType } from '../../types';
 
 interface RequestConfig {
   url: string;
@@ -12,20 +11,18 @@ interface RequestConfig {
   token?: string;
 }
 
-const initialUserMessageState = {
-  isErrorMessage: false,
-  showUserMessage: false,
-  userMessage: 'This is a test',
-};
 function useHttp(requestConfig: RequestConfig) {
-  // loading state for button
   const [loading, setLoading] = useState(false);
-  //  state for user message component
-  const [message, setMessage] = useState<UserMessageType>(
-    initialUserMessageState,
-  );
+  const [showUserMessage, setShowUserMessage] = useState(false);
+  const [isErrorMessage, setIsErrorMessage] = useState(false);
+  const [message, setMessage] = useState('');
+
+  // loading state for button
+  //TODO convert all to state
+
   // function returned from this hook
   const sendRequest = async (body: any = null, callback: any = null) => {
+    setLoading(true);
     await axios({
       method: requestConfig.method ? requestConfig.method : 'GET',
       url: `${baseURL}/${requestConfig.url}`,
@@ -38,12 +35,9 @@ function useHttp(requestConfig: RequestConfig) {
       withCredentials: requestConfig.withCredentials,
     })
       .then((response) => {
-        setMessage({
-          isErrorMessage: false,
-          showUserMessage: true,
-          userMessage: response.data.userMessage,
-        });
-		console.log(message)
+        setIsErrorMessage(false);
+        setShowUserMessage(true);
+        setMessage(response.data.userMessage);
         setTimeout(() => {
           setLoading(false);
         }, 1500);
@@ -53,19 +47,26 @@ function useHttp(requestConfig: RequestConfig) {
       })
 
       .catch((err) => {
-        setMessage({
-          isErrorMessage: true,
-          showUserMessage: true,
-          userMessage: err.response.data.userMessage,
-        });
-        console.log(message);
+        setIsErrorMessage(true);
+        setShowUserMessage(true);
+        setMessage(err.response.data.userMessage);
         setLoading(true);
         setTimeout(() => {
           setLoading(false);
         }, 1500);
       });
   };
-  return { loading, message, setMessage, setLoading, sendRequest };
+  return {
+    loading,
+    message,
+    setMessage,
+    setLoading,
+    sendRequest,
+    showUserMessage,
+    setShowUserMessage,
+    isErrorMessage,
+    setIsErrorMessage,
+  };
 }
 
 export default useHttp;

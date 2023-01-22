@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useHttp from '../hooks/useHttp';
 import { LoadingBtn } from '../LoadingBtn/LoadingBtn';
-import {UserMessage } from '../UserMessage/UserMessage'
+import { UserMessage } from '../UserMessage/UserMessage';
 type FormState = {
   firstName: string;
   lastName: string;
@@ -16,20 +16,25 @@ const BookTasterFrom: React.FC = () => {
     option: '',
   };
   const [formState, setFormState] = useState<FormState>(initailFormState);
-
-  const { loading, setLoading, sendRequest, message, setMessage } = useHttp({
+  const {
+    loading,
+    message,
+    setMessage,
+    setLoading,
+    sendRequest,
+    showUserMessage,
+    setShowUserMessage,
+    isErrorMessage,
+    setIsErrorMessage,
+  } = useHttp({
     url: '/api/mailchimpAddProspect',
     method: 'POST',
     withCredentials: false,
   });
-useEffect(() => {
-
-  console.log(message.userMessage)
-
-	}, [message])
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
+    setShowUserMessage(false);
     const { name, value } = event.target;
     setFormState({
       ...formState,
@@ -39,14 +44,14 @@ useEffect(() => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-	setLoading(true)
+    setLoading(true);
     sendRequest(formState);
     setFormState(initailFormState);
   };
 
   return (
     <form
-      className="absolute flex flex-col right-20 bottom-0 mb-3 mr-3 bg-black/75 border-2 rounded-md border-lightGold  
+      className="absolute  flex flex-col right-20 bottom-0 mb-3 mr-3 bg-black/75 border-2 rounded-md border-lightGold  
 	  p-2 pl-5 w-1/3 h-80 justify-evenly text-gray-50  "
       onSubmit={handleSubmit}
     >
@@ -111,8 +116,13 @@ useEffect(() => {
           <option value="option5">Option 5</option>
         </select>
       </div>
-	<LoadingBtn text={"Book Now"} loading={loading} />
-	<UserMessage message={message.userMessage} isError={message.isErrorMessage} showMessage={message.showUserMessage} />
+	  {/*TODO state to disable button if error in form*/}
+      <LoadingBtn text={'Book Now'} loading={loading} />
+      <UserMessage
+        message={message}
+        isError={isErrorMessage}
+        showMessage={showUserMessage}
+      />
     </form>
   );
 };

@@ -21,9 +21,3 @@ export type MemberType = {
   address: string;
   address_line2?: string;
 };
-export type UserMessageType = {
-  isErrorMessage: boolean;
-  showUserMessage: boolean;
-  userMessage: string | any;
-};
-
