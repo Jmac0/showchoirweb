@@ -2,6 +2,7 @@ import React from 'react';
 
 type Props = {
   text: string;
+disableBtn: boolean;
   loading: boolean;
 };
 

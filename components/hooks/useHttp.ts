@@ -40,7 +40,7 @@ function useHttp(requestConfig: RequestConfig) {
         setMessage(response.data.userMessage);
         setTimeout(() => {
           setLoading(false);
-        }, 1500);
+        }, 300);
 
         // callback from hook call
         if (callback) callback(response.data);
@@ -53,7 +53,7 @@ function useHttp(requestConfig: RequestConfig) {
         setLoading(true);
         setTimeout(() => {
           setLoading(false);
-        }, 1500);
+        }, 300);
       });
   };
   return {

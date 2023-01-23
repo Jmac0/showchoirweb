@@ -8,14 +8,15 @@ type FormState = {
   email: string;
   option: string;
 };
+
+const initailFormState: FormState = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  option: '',
+};
 const BookTasterFrom: React.FC = () => {
-  const initailFormState: FormState = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    option: '',
-  };
-  const [formState, setFormState] = useState<FormState>(initailFormState);
+  // destructure values from useHttp
   const {
     loading,
     message,
@@ -31,6 +32,14 @@ const BookTasterFrom: React.FC = () => {
     method: 'POST',
     withCredentials: false,
   });
+  // state to disable submit button
+  const [disableBtn, setDisableBtn] = useState(false);
+  const [formState, setFormState] = useState<FormState>(initailFormState);
+  // regex to check for .ru email addresses
+  // Only reset form if no error
+  useEffect(() => {
+    if (!isErrorMessage) setFormState(initailFormState);
+  }, [isErrorMessage]);
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -46,13 +55,11 @@ const BookTasterFrom: React.FC = () => {
     event.preventDefault();
     setLoading(true);
     sendRequest(formState);
-    setFormState(initailFormState);
   };
-
   return (
     <form
-      className="absolute  flex flex-col right-20 bottom-0 mb-3 mr-3 bg-black/75 border-2 rounded-md border-lightGold  
-	  p-2 pl-5 w-1/3 h-80 justify-evenly text-gray-50  "
+      className="absolute flex flex-col md:right-20 md:bottom-5 mr-3 bg-black/75 border-2 rounded-md border-lightGold  
+	  p-2 pl-5 w-1/3  justify-evenly text-gray-50 "
       onSubmit={handleSubmit}
     >
       <h1 className="pt-1 pb-1">Book Your Free Taster</h1>
@@ -61,7 +68,7 @@ const BookTasterFrom: React.FC = () => {
           First name:
         </label>
         <input
-          className="text-black"
+          className="text-black text-sm w-6/12 pl-1"
           type="text"
           id="first_name"
           name="firstName"
@@ -75,7 +82,7 @@ const BookTasterFrom: React.FC = () => {
           Last name:
         </label>
         <input
-          className="text-black"
+          className="text-black text-sm w-6/12 pl-1"
           type="text"
           id="last_name"
           name="lastName"
@@ -89,7 +96,7 @@ const BookTasterFrom: React.FC = () => {
           Email:
         </label>
         <input
-          className="text-black"
+          className="text-black text-sm w-6/12 pl-1"
           type="email"
           id="email"
           name="email"
@@ -116,8 +123,7 @@ const BookTasterFrom: React.FC = () => {
           <option value="option5">Option 5</option>
         </select>
       </div>
-	  {/*TODO state to disable button if error in form*/}
-      <LoadingBtn text={'Book Now'} loading={loading} />
+      <LoadingBtn disableBtn={disableBtn} text={'Book Now'} loading={loading} />
       <UserMessage
         message={message}
         isError={isErrorMessage}
