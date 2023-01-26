@@ -13,6 +13,7 @@ type Props = {
 export function UserMessage({ message, isError, showMessage }: Props) {
   return (
     <div
+      data-testid="user-message-container"
       className={`flex flex-row mt-2 self-center min-w-fit justify-center mr-3 items-center w-max p-1 h-8 px-5 rounded-md border-2  
 	  ${showMessage ? 'opacity-1' : 'opacity-0'}
   ${
@@ -27,7 +28,7 @@ export function UserMessage({ message, isError, showMessage }: Props) {
           style={{ fontSize: 20, color: isError ? '#b71c1c' : '#ffa000' }}
         />{' '}
       </div>
-      <div>{message}</div>
+      <div data-testid="user-message">{message}</div>
     </div>
   );
 }

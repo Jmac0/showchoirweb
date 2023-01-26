@@ -1,23 +1,21 @@
-
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom'
-import  BookTasterForm  from '../BookTasterForm';
-
+import '@testing-library/jest-dom';
+import BookTasterForm from '../BookTasterForm';
+function GetButtonFireEvent() {
+  const btn = screen.getByRole('button');
+  fireEvent.click(btn);
+}
 describe('BookTasterForm', () => {
   it('Button should have Book now text', () => {
-    render(<BookTasterForm  />);
-    // findBy works with async await
+    render(<BookTasterForm   />);
     const btn = screen.getByRole('button');
-    // logs to console
-    //screen.debug()
-
     expect(btn).toHaveTextContent('Book Now');
   });
   it('Button should have Loading when clicked', () => {
-    render(<BookTasterForm  />);
+    render(<BookTasterForm />);
     // findBy works with async await
     const btn = screen.getByRole('button');
-    fireEvent.click(btn)
+    fireEvent.click(btn);
     //screen.debug()
 
     expect(btn).toHaveTextContent('Loading');

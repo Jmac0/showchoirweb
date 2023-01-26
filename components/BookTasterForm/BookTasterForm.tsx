@@ -20,13 +20,13 @@ const BookTasterFrom: React.FC = () => {
   const {
     loading,
     message,
-    setMessage,
+    //    setMessage,
     setLoading,
     sendRequest,
     showUserMessage,
     setShowUserMessage,
     isErrorMessage,
-    setIsErrorMessage,
+    //   setIsErrorMessage,
   } = useHttp({
     url: '/api/mailchimpAddProspect',
     method: 'POST',
@@ -58,7 +58,7 @@ const BookTasterFrom: React.FC = () => {
   };
   return (
     <form
-      className="absolute flex flex-col md:right-20 md:bottom-5 mr-3 bg-black/75 border-2 rounded-md border-lightGold  
+      className="absolute flex flex-col md:right-20 md:bottom-2 mr-3 bg-black/75 border-2 rounded-md border-lightGold  
 	  p-2 pl-5 w-1/3  justify-evenly text-gray-50 "
       onSubmit={handleSubmit}
     >
