@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import { PillButton } from './../components/PillButton/PillButton';
 
 type Props = {
   markdown: string;
@@ -12,7 +11,6 @@ export const MembershipOptionInfo = ({ markdown }: Props) => {
 
 <ReactMarkdown>{markdown}</ReactMarkdown>
       <div className="flex self-center mt-auto">
-        <PillButton text={'Buy Now'} />
       </div>
     </div>
   );

@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { baseURL } from '../../lib/urls';
-//import { initialUserMessageState } from '../utils/initialStates';
 
 interface RequestConfig {
   url: string;

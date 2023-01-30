@@ -19,7 +19,7 @@ export default async function handler(
   // check first and last names are not the same as an anti spam filter
   if (req.body.firstName === req.body.lastName) {
     res
-      .status(400)
+      .status(401)
       .json({ userMessage: 'First name must be different from last name' });
     return;
   }
