@@ -9,9 +9,9 @@ type Props = {
 
 export function Hero({ bgImage, logo, heroText }: Props) {
   return (
-    <section className="relative flex flex-col md:flex-row ">
+    <section className="relative flex flex-col lg:flex-row lg:h-screen ">
       {/* hero image  */}
-      <div className="w-full lg:w-3/4">
+      <div className="w-full  lg:w-3/4">
         <Image src={bgImage} />
       </div>
       {/*  Logo  */}
@@ -26,10 +26,10 @@ export function Hero({ bgImage, logo, heroText }: Props) {
       </div>
 
       {/* hero text block */}
-      <div className="z-10 p-2 pl-5 -mt-24  md:absolute md:bottom-1 md:left-16 md:h-72 md:w-5/12 lg:absolute lg:bottom-6 lg:left-16 lg:h-72 lg:w-5/12">
+      <div className="z-10 p-2 pl-5 -mt-24 md:bottom-0  lg:absolute lg:bottom-6 lg:left-16 lg:h-72 ">
         {heroText}
       </div>
-      {/* <BookTasterForm />*/}
+       <BookTasterForm />
     </section>
   );
 }

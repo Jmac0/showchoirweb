@@ -59,17 +59,17 @@ const BookTasterFrom: React.FC = () => {
   };
   return (
     <form
-      className="absolute flex flex-col md:right-20 md:bottom-2 mr-3 bg-black/75 border-2 rounded-md border-lightGold  
-	  p-2 pl-5 w-1/3  justify-evenly text-gray-50 "
+      className="flex w-11/12 flex-col justify-evenly self-center rounded-md border-2 border-lightGold bg-lightBlack/75 p-2  
+	  pl-5 text-gray-50 lg:absolute lg:bg-black/75 lg:right-10  lg:bottom-2 lg:w-1/3 "
       onSubmit={handleSubmit}
     >
       <h1 className="pt-1 pb-1">Book Your Free Taster</h1>
-      <div className="flex flex-row my-2">
+      <div className="my-2 flex flex-row">
         <label className="w-32" htmlFor="first_name">
           First name:
         </label>
         <input
-          className="text-black text-sm w-6/12 pl-1"
+          className="w-6/12 pl-1 text-sm text-black"
           type="text"
           id="first_name"
           name="firstName"
@@ -78,12 +78,12 @@ const BookTasterFrom: React.FC = () => {
         />
       </div>
 
-      <div className="flex flex-row my-2">
+      <div className="my-2 flex flex-row">
         <label className="w-32" htmlFor="last_name">
           Last name:
         </label>
         <input
-          className="text-black text-sm w-6/12 pl-1"
+          className="w-6/12 pl-1 text-sm text-black"
           type="text"
           id="last_name"
           name="lastName"
@@ -92,12 +92,12 @@ const BookTasterFrom: React.FC = () => {
         />
       </div>
 
-      <div className="flex flex-row my-2">
+      <div className="my-2 flex flex-row">
         <label className="w-32" htmlFor="email">
           Email:
         </label>
         <input
-          className="text-black text-sm w-6/12 pl-1"
+          className="w-6/12 pl-1 text-sm text-black"
           type="email"
           id="email"
           name="email"
@@ -105,7 +105,7 @@ const BookTasterFrom: React.FC = () => {
           onChange={handleInputChange}
         />
       </div>
-      <div className="flex flex-row my-2">
+      <div className="my-2 flex flex-row">
         <label className="w-32" htmlFor="option">
           Location:
         </label>
