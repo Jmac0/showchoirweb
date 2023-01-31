@@ -17,7 +17,7 @@ export default async function handler(
   await dbConnect();
 const redirectFlow = await client.redirectFlows.create({
   description: "Show Choir",
-  session_token: "TK12pis3,
+  session_token: "TK12pis3",
   success_redirect_url: "https://www.show-choir.co.uk",
   prefilled_customer: {
     given_name: "Mike",

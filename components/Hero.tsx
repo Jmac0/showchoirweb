@@ -9,21 +9,27 @@ type Props = {
 
 export function Hero({ bgImage, logo, heroText }: Props) {
   return (
-    <section className="top-0 left-0 flex flex-row relative ">
-      {/* hero text block */}
-      <div className="absolute z-10 md:bottom-6  md:left-16 p-2 pl-5 w-5/12 h-72">
-        {heroText}
-      </div>
+    <section className="relative flex flex-col md:flex-row ">
       {/* hero image  */}
-      <div className="w-full md:w-3/4">
+      <div className="w-full lg:w-3/4">
         <Image src={bgImage} />
       </div>
       {/*  Logo  */}
-      <div className="hidden absolute md:block  md:right-20 md:top-20 ">
-        <Image width={200} height={270} src={logo} />;
+      <div className="absolute right-3 md:hidden ">
+        <Image width={100} height={100} src={logo} />;
+      </div>
+      <div className="absolute right-3 hidden  lg:hidden md:block ">
+        <Image width={200} height={200} src={logo} />;
+      </div>
+      <div className="absolute hidden md:right-20  md:top-20 lg:block ">
+        <Image width={270} height={270} src={logo} />;
       </div>
 
-      <BookTasterForm />
+      {/* hero text block */}
+      <div className="z-10 p-2 pl-5 -mt-24  md:absolute md:bottom-1 md:left-16 md:h-72 md:w-5/12 lg:absolute lg:bottom-6 lg:left-16 lg:h-72 lg:w-5/12">
+        {heroText}
+      </div>
+      {/* <BookTasterForm />*/}
     </section>
   );
 }
