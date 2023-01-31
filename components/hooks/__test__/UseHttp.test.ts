@@ -4,7 +4,7 @@ import useHttp from '../useHttp';
 import MockAdapter from 'axios-mock-adapter';
 import { renderHook, act } from '@testing-library/react-hooks/dom';
 
-    const mock = new MockAdapter(axios);
+const mock = new MockAdapter(axios);
 describe('useHttp hook', () => {
   it('should make a POST request to the API and return a success message', async () => {
     // mock axios response
@@ -23,13 +23,12 @@ describe('useHttp hook', () => {
       useHttp(requestConfig),
     );
 
-    await act(async() => {
+    await act(async () => {
       // make the API call
       result.current.sendRequest();
     });
     waitForNextUpdate();
     //console.log(result.current.message.data.userMessage);
-	
 
     // assert on the hook state
     expect(result.current.message).toBe('Success message');
