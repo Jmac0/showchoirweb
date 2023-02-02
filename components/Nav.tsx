@@ -72,22 +72,22 @@ export function Nav({ pathData }: Props) {
           <div className="hidden md:inline-block">{menuItems}</div>
           {/*hamburger*/}
           <div
-            className="flex  flex-col z-40 w-6 h-5 justify-between items-center md:hidden"
+            className="flex  flex-col z-40 w-6 justify-between items-center h-6  md:hidden"
             onClick={handleClick}
           >
             <div
-              className={`w-6 h-1 bg-lightBlack rounded-full  origin-left ${
-                open ? 'rotate-45 w-[23px]' : 'rotate-0'
+              className={`w-6 h-1 bg-gray-50 rounded-full mb-1  origin-left ${
+                open ? 'rotate-45 w-[22px] mt-1 ml-1' : 'rotate-0'
               } transition-all`}
             />
             <div
-              className={`w-6 h-1 bg-lightBlack rounded-full  origin-left ${
-                open && 'bg-transparent'
+              className={`w-6 h-1 bg-gray-50 rounded-full  origin-left ${
+                open && 'hidden'
               } transition-all`}
             />
             <div
-              className={`w-6 h-1 bg-lightBlack rounded-full  origin-left ${
-                open ? '-rotate-45 w-[23px]' : 'rotate-0'
+              className={`w-6 h-1 bg-gray-50 rounded-full mt-1  origin-left ${
+                open ? '-rotate-45 w-[22px] ml-1' : 'rotate-0'
               } transition-all`}
             />
           </div>

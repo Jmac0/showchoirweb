@@ -60,7 +60,7 @@ const BookTasterFrom: React.FC = () => {
   return (
     <form
       className="flex w-11/12 flex-col justify-evenly self-center rounded-md border-2 border-lightGold bg-lightBlack/75 p-2  
-	  pl-5 text-gray-50 lg:absolute lg:bg-black/75 lg:right-10  lg:bottom-2 lg:w-1/3 "
+	  pl-5 text-gray-50 md:w-2/3 lg:absolute lg:bg-black/75 lg:right-10  lg:bottom-2 lg:w-1/3 "
       onSubmit={handleSubmit}
     >
       <h1 className="pt-1 pb-1">Book Your Free Taster</h1>
