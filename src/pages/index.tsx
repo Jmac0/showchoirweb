@@ -1,14 +1,18 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import heroImage from './../public/brollies.png';
-import logo from './../public/logo.png';
+import heroImage from '../../public/brollies.png';
+import logo from '../../public/logo.png';
 import { useEffect, useState } from 'react';
 import { getHomePageData, getPageData } from '../lib/getPages';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { formatOptions } from '../lib/toReactComponent';
 import { Nav } from '../components/Nav';
 import { Footer } from '../components/Footer';
-import {Hero} from '../components/Hero';
+import { Hero } from '../components/Hero';
+
+import { useSelector } from 'react-redux';
+import type { AppState } from '../store/store';
+
 export async function getStaticProps() {
   const homePageData = await getHomePageData();
   const {
@@ -36,12 +40,15 @@ export async function getStaticProps() {
 }
 
 type Props = {
+  number: number;
   title: string;
   content: {};
   pathData: [{ slug: string; displayText: string; order: number }];
 };
+
 const Home: NextPage<Props> = ({ title, content, pathData }) => {
   const [bodyTxt, setBodyTxt] = useState('');
+
   // convert contentful object to html rich text
   // @ts-ignore
   const bodyHtml = documentToReactComponents(content, formatOptions);

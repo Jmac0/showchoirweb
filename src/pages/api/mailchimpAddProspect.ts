@@ -1,7 +1,7 @@
 const mailchimp = require('@mailchimp/mailchimp_marketing');
 const listId = process.env.MAILCHIMP_LIST_ID;
 import type { NextApiRequest, NextApiResponse } from 'next';
-import axios from 'axios';
+
 mailchimp.setConfig({
   apiKey: process.env.MAILCHIMP_API,
   server: process.env.MAILCHIMP_SERVER_PREFIX,
@@ -16,14 +16,14 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   const regex = new RegExp('.*.ru$');
-  // check first and last names are not the same as an anti spam filter
+  // check first and last names are not the same as an anti-spam filter
   if (req.body.firstName === req.body.lastName) {
     res
       .status(401)
       .json({ userMessage: 'First name must be different from last name' });
     return;
   }
-// check email does not end in .ru
+  // check email does not end in .ru
   if (regex.test(req.body.email)) {
     res.status(400).json({ userMessage: 'Please enter a valid email' });
     return;

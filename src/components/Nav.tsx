@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+//
+import type { PageItem } from '../../types';
 
-type PageItem = {
-  slug: string;
-  displayText: string;
-  order: number;
-};
 type Props = {
-  pathData: [PageItem];
+  pathData: PageItem[];
 };
 
 export function Nav({ pathData }: Props) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const sortedItems = pathData.sort((a: PageItem, b: PageItem) =>
+  // copy p:w
+  // props to avoid read only error
+  const paths = [...pathData];
+  // Sort order of menu items by order property
+  const sortedItems = paths.sort((a: PageItem, b: PageItem) =>
     a.order < b.order ? -1 : 1,
   );
 

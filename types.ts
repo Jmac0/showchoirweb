@@ -20,4 +20,12 @@ export type MemberType = {
   last_name: string;
   address: string;
   address_line2?: string;
+
+};
+
+
+export type PageItem = {
+  slug: string;
+  displayText: string;
+  order: number;
 };

@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 const webhooks = require('gocardless-nodejs/webhooks');
 import { buffer } from 'micro';
 import dbConnect from '../../lib/dbConnect';
-import { MandateType, MemberType } from '../../types';
+import { MandateType, MemberType } from '../../../types';
 import { getCustomerFromGoCardless } from './helpers/getCutomerGoCardless';
 const webhookEndpointSecret = process.env.GC_WEBHOOK_SECRET;
 // @ts-ignore

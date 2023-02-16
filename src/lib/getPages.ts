@@ -1,4 +1,4 @@
-import { client } from "../contentfulClient";
+import { client } from "../../contentfulClient";
 
 export const getHomePageData = async () => {
   let data: any = {};
