@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 import { useState } from 'react';
 import axios from 'axios';
 import { baseURL } from '../../lib/urls';

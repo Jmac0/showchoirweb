@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { formatOptions } from '../lib/toReactComponent';
 import { getPageData } from '../lib/getPages';
-import urlSlice, { setUrlData } from '../features/urlSlice';
+import { setUrlData } from '../features/urlSlice';
 import Head from 'next/head';
 import { Nav } from '../components/Nav';
 import { Footer } from '../components/Footer';
-import { MembershipOptionInfo } from './../components/MembershipOptionInfo';
+import { MembershipOptionInfo } from '../components/MembershipOptionInfo';
 import { wrapper } from '../store/store';
 
 type Props = {
@@ -17,13 +17,13 @@ type Props = {
 export default function Slug({ currentPage, pathData }: Props) {
   const { title, content, flexiInfo, monthlyInfo } = currentPage;
   const [bodyTxt, setBodyTxt] = useState('');
-  // convert contentful object to html rich text
-  // @ts-ignore
-  const bodyHtml = documentToReactComponents(content, formatOptions);
   useEffect(() => {
+    // convert contentful object to html rich text
     // set body text in here to solve hydration issue
+    const bodyHtml = documentToReactComponents(content, formatOptions);
     setBodyTxt(bodyHtml as any);
-  }, []);
+    console.log(bodyHtml);
+  }, [content]);
 
   return (
     <div className="flex flex-col w-full h-screen ">
@@ -44,7 +44,6 @@ export default function Slug({ currentPage, pathData }: Props) {
           <div className="flex flex-col flex-wrap w-screen items-center justify-center md:h-3/4 md:flex-row">
             <MembershipOptionInfo markdown={flexiInfo} />
             <MembershipOptionInfo markdown={monthlyInfo} />
-            <MembershipOptionInfo markdown={flexiInfo} />
           </div>
         )}
       </main>

@@ -9,7 +9,7 @@ type Props = {
 
 export function Hero({ bgImage, logo, heroText }: Props) {
   return (
-    <section className="relative flex flex-col lg:flex-row lg:h-screen ">
+    <section className="relative flex flex-col lg:flex-row lg:h-screen  bg-black">
       {/* hero image  */}
       <div className="w-full  lg:w-3/4">
         <Image alt="image of choir signing" src={bgImage} />
