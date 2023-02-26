@@ -9,7 +9,7 @@ type FormState = {
   option: string;
 };
 
-const initailFormState: FormState = {
+const initialFormState: FormState = {
   firstName: '',
   lastName: '',
   email: '',
@@ -35,11 +35,11 @@ const BookTasterFrom: React.FC = () => {
 
   // state to disable submit button
   const [disableBtn, setDisableBtn] = useState(false);
-  const [formState, setFormState] = useState<FormState>(initailFormState);
+  const [formState, setFormState] = useState<FormState>(initialFormState);
   // regex to check for .ru email addresses
   // Only reset form if no error
   useEffect(() => {
-    if (!isErrorMessage) setFormState(initailFormState);
+    if (!isErrorMessage) setFormState(initialFormState);
   }, [isErrorMessage]);
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -59,7 +59,7 @@ const BookTasterFrom: React.FC = () => {
   };
   return (
     <form
-      className="flex w-11/12 flex-col justify-evenly self-center rounded-md border-2 border-lightGold bg-lightBlack/75 p-2  
+      className="flex w-11/12 flex-col justify-evenly self-center rounded-md border-2 border-lightGold bg-lightBlack/75 p-2
 	  pl-5 text-gray-50 md:w-2/3 lg:absolute lg:bg-black/75 lg:right-10  lg:bottom-2 lg:w-1/3 "
       onSubmit={handleSubmit}
     >
