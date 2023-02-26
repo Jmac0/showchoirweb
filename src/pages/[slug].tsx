@@ -8,21 +8,28 @@ import { Nav } from '../components/Nav';
 import { Footer } from '../components/Footer';
 import { MembershipOptionInfo } from '../components/MembershipOptionInfo';
 import { wrapper } from '../store/store';
+import { BLOCKS } from '@contentful/rich-text-types';
+import MembershipOptionsContainer from '../components/MembershipOptionsContainer';
 
 type Props = {
   pathData: [{ slug: string; displayText: string; order: number }];
-  currentPage: any;
+  currentPage: {
+    title: string;
+    content: { data: {}; content: []; nodeType: BLOCKS.DOCUMENT };
+    flexiInfo: string;
+    monthlyInfo: string;
+  };
 };
 
 export default function Slug({ currentPage, pathData }: Props) {
   const { title, content, flexiInfo, monthlyInfo } = currentPage;
+
   const [bodyTxt, setBodyTxt] = useState('');
   useEffect(() => {
     // convert contentful object to html rich text
     // set body text in here to solve hydration issue
     const bodyHtml = documentToReactComponents(content, formatOptions);
-    setBodyTxt(bodyHtml as any);
-    console.log(bodyHtml);
+    setBodyTxt(bodyHtml as string);
   }, [content]);
 
   return (
@@ -40,11 +47,12 @@ export default function Slug({ currentPage, pathData }: Props) {
         className={`w-screen flex p-2.5 flex-col items-center bg-transparent`}
       >
         <div className="flex flex-col w-9/12 text-center pb-10">{bodyTxt}</div>
+        {/*component displaying membership option boxes */}
         {flexiInfo && (
-          <div className="flex flex-col flex-wrap w-screen items-center justify-center md:h-3/4 md:flex-row">
-            <MembershipOptionInfo markdown={flexiInfo} />
-            <MembershipOptionInfo markdown={monthlyInfo} />
-          </div>
+          <MembershipOptionsContainer
+            flexiInfo={flexiInfo}
+            monthlyInfo={monthlyInfo}
+          />
         )}
       </main>
       <Footer />
