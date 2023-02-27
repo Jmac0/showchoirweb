@@ -7,9 +7,12 @@ type Props = {
 };
 function MembershipOptionsContainer({ flexiInfo, monthlyInfo }: Props) {
   return (
-    <div className="flex flex-col flex-wrap w-screen items-center justify-center md:h-3/4 md:flex-row">
+    <div className="flex flex-col flex-wrap w-screen items-center justify-center md:flex-row">
+      <MembershipOptionInfo
+        markdown={monthlyInfo}
+        navigateTo={'membership/monthly'}
+      />
       <MembershipOptionInfo markdown={flexiInfo} navigateTo={'*'} />
-      <MembershipOptionInfo markdown={monthlyInfo} navigateTo={'*'} />
     </div>
   );
 }
