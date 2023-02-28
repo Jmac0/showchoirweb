@@ -161,19 +161,29 @@ function NewMemberSignUpForm() {
             onChange={() => setAgeConfirm(!ageConfirm)}
           />
         </div>
-        <div className="my-2 flex flex-row items-top">
-          <label className="mr-4" htmlFor="ageConfirm">
-            I agree to the terms and conditions *
-          </label>
-          <input
-            required={true}
-            className="mt-1.5 "
-            type="checkbox"
-            id="ageConfirm"
-            name="ageConfirm"
-            defaultChecked={termsAndConditions}
-            onChange={() => setTermsAndConditions(!termsAndConditions)}
-          />
+        <div className="my-2 flex flex-col items-top">
+          <p className="text-xs">
+            Please tick the box below to indicate your consent to Show Choir
+            holding your data for the reasons given above. This information is
+            collected by Show Choir to enable us to provide services to you. It
+            will be added to our customer records and will be retained where we
+            are legally obliged to do so, we never share your infomation with
+            third parties.
+          </p>
+          <div className="flex flex-row mt-3">
+            <label className="mr-4" htmlFor="ageConfirm">
+              I agree to the terms and conditions *
+            </label>
+            <input
+              required={true}
+              className="mt-1.5 "
+              type="checkbox"
+              id="ageConfirm"
+              name="ageConfirm"
+              defaultChecked={termsAndConditions}
+              onChange={() => setTermsAndConditions(!termsAndConditions)}
+            />
+          </div>
         </div>
       </form>
     </div>
