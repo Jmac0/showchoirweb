@@ -33,7 +33,7 @@ export default function Slug({ currentPage, pathData }: Props) {
   }, [content]);
 
   return (
-    <div className="flex flex-col w-full h-screen ">
+    <div className="flex flex-col">
       <Head>
         <title>{title}</title>
         <meta
@@ -44,7 +44,7 @@ export default function Slug({ currentPage, pathData }: Props) {
       </Head>
       <Nav pathData={pathData} />
       <main
-        className={`w-screen flex p-2.5 flex-col items-center bg-transparent`}
+        className={`w-screen flex p-2.5 flex-col items-center bg-transparent mt-16`}
       >
         <div className="flex flex-col w-9/12 text-center pb-10">{bodyTxt}</div>
         {/*component displaying membership option boxes */}
