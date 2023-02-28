@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import { Footer } from '../../components/Footer';
-import SignUpForm from '../../components/signUpForm/SignUpForm';
+import NewMemberSignUpForm from '../../components/NewMemberSignUpForm/NewMemberSignUpForm';
 import { useSelector } from 'react-redux';
 import { selectUrls } from '../../features/urlSlice';
 import Head from 'next/head';
@@ -19,10 +19,10 @@ const MonthlyMembershipDetail: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="flex">
+      <div className="flex flex-col">
         <Nav pathData={pathData} />
       </div>
-      <SignUpForm />
+      <NewMemberSignUpForm />
       <Footer />
     </div>
   );
