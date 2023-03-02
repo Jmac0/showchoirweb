@@ -3,6 +3,7 @@ function NewMemberSignUpForm() {
   const [ageConfirm, setAgeConfirm] = useState(false);
   const [termsAndConditions, setTermsAndConditions] = useState(false);
   type NewMemberFormState = {
+    postCode: any;
     firstName: string;
     lastName: string;
     streetAddress: string;
@@ -19,6 +20,7 @@ function NewMemberSignUpForm() {
     streetAddress: '',
     townOrCity: '',
     county: '',
+    postCode: '',
     email: '',
     ageConfirm: ageConfirm,
     option: '',
@@ -37,16 +39,16 @@ function NewMemberSignUpForm() {
   };
 
   return (
-    <div className="flex flex-col items-center w-full py-1 h-full ">
+    <div className="flex flex-col items-center w-full md:w-2/3 py-1 h-full ">
       <h2>Join The Fun!</h2>
-      <form className="flex flex-col w-11/12 p-3 text-gray-50 rounded-md border-2 border-lightGold ">
+      <form className="flex flex-col w-11/12 h-full space-y-6 p-3 text-gray-50 rounded-md border-2 border-lightGold ">
         <div className="my-2 flex flex-col md:flex-row">
           <label className="w-32" htmlFor="first_name">
-            First name : *
+            First name
           </label>
           <input
             required={true}
-            className="w-full pl-1 text-sm text-black"
+            className="w-full md:w-9/12 pl-1 text-sm text-black"
             type="text"
             id="first_name"
             name="firstName"
@@ -57,11 +59,11 @@ function NewMemberSignUpForm() {
 
         <div className="my-2 flex flex-col md:flex-row">
           <label className="w-32" htmlFor="last_name">
-            Last name : *
+            Last name
           </label>
           <input
             required={true}
-            className="w-full pl-1 text-sm text-black"
+            className="w-full md:w-9/12 pl-1 text-sm text-black"
             type="text"
             id="last_name"
             name="lastName"
@@ -72,11 +74,11 @@ function NewMemberSignUpForm() {
 
         <div className="my-2 flex flex-col md:flex-row">
           <label className="w-32" htmlFor="first_name">
-            Street address : *
+            Street address
           </label>
           <input
             required={true}
-            className="w-full pl-1 text-sm text-black"
+            className="w-full md:w-9/12 pl-1 text-sm text-black"
             type="text"
             id="street_address"
             name="streetAddress"
@@ -86,11 +88,11 @@ function NewMemberSignUpForm() {
         </div>
         <div className="my-2 flex flex-col md:flex-row">
           <label className="w-32" htmlFor="first_name">
-            Town/City : *
+            Town/City
           </label>
           <input
             required={true}
-            className="w-full pl-1 text-sm text-black"
+            className="w-full md:w-9/12 pl-1 text-sm text-black"
             type="text"
             id="town_city"
             name="townOrCity"
@@ -99,12 +101,12 @@ function NewMemberSignUpForm() {
           />
         </div>
         <div className="my-2 flex flex-col md:flex-row">
-          <label className="w-32" htmlFor="first_name">
-            County : *
+          <label className="w-32 " htmlFor="first_name">
+            County
           </label>
           <input
             required={true}
-            className="w-full pl-1 text-sm text-black"
+            className="w-full md:w-9/12 pl-1 text-sm text-black"
             type="text"
             id="county"
             name="county"
@@ -112,13 +114,29 @@ function NewMemberSignUpForm() {
             onChange={handleInputChange}
           />
         </div>
+
+        <div className="my-2 flex flex-col md:flex-row">
+          <label className="w-32 " htmlFor="first_name">
+            Post Code
+          </label>
+          <input
+            required={true}
+            className="w-32 pl-1 text-sm text-black md:w-32"
+            type="text"
+            id="post_code"
+            name="postCode"
+            value={formState.postCode}
+            onChange={handleInputChange}
+          />
+        </div>
+
         <div className="my-2 flex flex-col md:flex-row">
           <label className="w-32" htmlFor="email">
             Email : *
           </label>
           <input
             required={true}
-            className="w-full pl-1 text-sm text-black"
+            className="w-full md:w-9/12 pl-1 text-sm text-black"
             type="email"
             id="email"
             name="email"
@@ -126,6 +144,11 @@ function NewMemberSignUpForm() {
             onChange={handleInputChange}
           />
         </div>
+        <p className="text-xs md:w-1/2">
+          At Show Choir you can attend any choir any time, but we ask you to
+          choose a home choir so we can update you about any venue changes &
+          deliver any product to your home choir for you to pick up.
+        </p>
         <div className="my-2 flex flex-col md:flex-row">
           <label className="w-32" htmlFor="option">
             Home Choir : *
@@ -162,7 +185,7 @@ function NewMemberSignUpForm() {
           />
         </div>
         <div className="my-2 flex flex-col items-top">
-          <p className="text-xs">
+          <p className="text-xs md:w-1/2">
             Please tick the box below to indicate your consent to Show Choir
             holding your data for the reasons given above. This information is
             collected by Show Choir to enable us to provide services to you. It
