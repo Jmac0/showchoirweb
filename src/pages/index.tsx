@@ -58,7 +58,7 @@ const Home: NextPage<Props> = ({ title, content, pathData }) => {
   }, []);
 
   return (
-    <div className="flex flex-col w-full h-screen ">
+    <div className="flex flex-col w-full">
       <Head>
         <title>{title}</title>
         <meta

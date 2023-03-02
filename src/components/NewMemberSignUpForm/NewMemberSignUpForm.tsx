@@ -3,6 +3,7 @@ function NewMemberSignUpForm() {
   const [ageConfirm, setAgeConfirm] = useState(false);
   const [termsAndConditions, setTermsAndConditions] = useState(false);
   type NewMemberFormState = {
+    phoneNumber: any;
     postCode: any;
     firstName: string;
     lastName: string;
@@ -11,7 +12,7 @@ function NewMemberSignUpForm() {
     county: string;
     email: string;
     ageConfirm: boolean;
-    option: string;
+    homeChoir: any;
   };
 
   const initialFormState: NewMemberFormState = {
@@ -21,9 +22,10 @@ function NewMemberSignUpForm() {
     townOrCity: '',
     county: '',
     postCode: '',
+    phoneNumber: '',
     email: '',
     ageConfirm: ageConfirm,
-    option: '',
+    homeChoir: '',
   };
   const [formState, setFormState] =
     useState<NewMemberFormState>(initialFormState);
@@ -39,7 +41,7 @@ function NewMemberSignUpForm() {
   };
 
   return (
-    <div className="flex flex-col items-center w-full md:w-2/3 py-1 h-full ">
+    <div className="flex flex-col items-center w-full md:w-2/3 py-1 ">
       <h2>Join The Fun!</h2>
       <form className="flex flex-col w-11/12 h-full space-y-6 p-3 text-gray-50 rounded-md border-2 border-lightGold ">
         <div className="my-2 flex flex-col md:flex-row">
@@ -73,7 +75,7 @@ function NewMemberSignUpForm() {
         </div>
 
         <div className="my-2 flex flex-col md:flex-row">
-          <label className="w-32" htmlFor="first_name">
+          <label className="w-32" htmlFor="street_address">
             Street address
           </label>
           <input
@@ -87,7 +89,7 @@ function NewMemberSignUpForm() {
           />
         </div>
         <div className="my-2 flex flex-col md:flex-row">
-          <label className="w-32" htmlFor="first_name">
+          <label className="w-32" htmlFor="town_city">
             Town/City
           </label>
           <input
@@ -101,7 +103,7 @@ function NewMemberSignUpForm() {
           />
         </div>
         <div className="my-2 flex flex-col md:flex-row">
-          <label className="w-32 " htmlFor="first_name">
+          <label className="w-32 " htmlFor="county">
             County
           </label>
           <input
@@ -116,12 +118,12 @@ function NewMemberSignUpForm() {
         </div>
 
         <div className="my-2 flex flex-col md:flex-row">
-          <label className="w-32 " htmlFor="first_name">
+          <label className="w-32 " htmlFor="post_code">
             Post Code
           </label>
           <input
             required={true}
-            className="w-32 pl-1 text-sm text-black md:w-32"
+            className="w-9/12 pl-1 text-sm text-black "
             type="text"
             id="post_code"
             name="postCode"
@@ -130,6 +132,20 @@ function NewMemberSignUpForm() {
           />
         </div>
 
+        <div className="my-2 flex flex-col md:flex-row">
+          <label className="w-32 " htmlFor="phone_number">
+            Phone Number
+          </label>
+          <input
+            required={true}
+            className="w-9/12 pl-1 text-sm text-black"
+            type="number"
+            id="phone_number"
+            name="phoneNumber"
+            value={formState.phoneNumber}
+            onChange={handleInputChange}
+          />
+        </div>
         <div className="my-2 flex flex-col md:flex-row">
           <label className="w-32" htmlFor="email">
             Email : *
@@ -146,19 +162,19 @@ function NewMemberSignUpForm() {
         </div>
         <p className="text-xs md:w-1/2">
           At Show Choir you can attend any choir any time, but we ask you to
-          choose a home choir so we can update you about any venue changes &
-          deliver any product to your home choir for you to pick up.
+          choose a home choir, so we can update you about any venue changes &
+          deliver any products to your home choir for you to pick up.
         </p>
         <div className="my-2 flex flex-col md:flex-row">
-          <label className="w-32" htmlFor="option">
+          <label className="w-32" htmlFor="home_choir">
             Home Choir : *
           </label>
           <select
             required={true}
             className="w-48 text-black"
-            id="option"
-            name="option"
-            value={formState.option}
+            id="home_choir"
+            name="homeChoir"
+            value={formState.homeChoir}
             onChange={handleInputChange}
           >
             <option value="">Choose a choir</option>
@@ -190,12 +206,12 @@ function NewMemberSignUpForm() {
             holding your data for the reasons given above. This information is
             collected by Show Choir to enable us to provide services to you. It
             will be added to our customer records and will be retained where we
-            are legally obliged to do so, we never share your infomation with
+            are legally obliged to do so, we never share your information with
             third parties.
           </p>
           <div className="flex flex-row mt-3">
             <label className="mr-4" htmlFor="ageConfirm">
-              I agree to the terms and conditions *
+              I agree:*
             </label>
             <input
               required={true}

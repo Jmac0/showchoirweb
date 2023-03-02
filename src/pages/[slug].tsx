@@ -33,7 +33,7 @@ export default function Slug({ currentPage, pathData }: Props) {
   }, [content]);
 
   return (
-    <div className="flex flex-col w-full h-screen ">
+    <div className="flex flex-col">
       <Head>
         <title>{title}</title>
         <meta

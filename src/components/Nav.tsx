@@ -63,7 +63,7 @@ export function Nav({ pathData }: Props) {
       ></div>
       <nav>
         {/*desktop nav container*/}
-        <div className="flex bg-transparent -100 justify-start pl-16 h-16  flex-row w-full md:justify-start items-center  md:h-28">
+        <div className="absolute flex bg-transparent justify-start pl-16 h-16 flex-row w-full md:justify-start items-center  md:h-28">
           <Link href="/">
             <a className="hidden text-white font-heading px-3  hover:text-gray-600 text-2xl md:inline-block">
               Home
