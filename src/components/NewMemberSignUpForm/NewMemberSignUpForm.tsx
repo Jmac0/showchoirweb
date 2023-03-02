@@ -41,7 +41,7 @@ function NewMemberSignUpForm() {
   };
 
   return (
-    <div className="flex flex-col items-center w-full md:w-2/3 py-1 ">
+    <div className="flex flex-col items-center py-1 lg:w-3/4 ">
       <h2>Join The Fun!</h2>
       <form className="flex flex-col w-11/12 h-full space-y-6 p-3 text-gray-50 rounded-md border-2 border-lightGold ">
         <div className="my-2 flex flex-col md:flex-row">

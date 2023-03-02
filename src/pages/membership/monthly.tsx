@@ -9,7 +9,7 @@ import { Nav } from '../../components/Nav';
 const MonthlyMembershipDetail: NextPage = () => {
   const pathData = useSelector(selectUrls);
   return (
-    <div className="flex flex-col w-full h-screen ">
+    <>
       <Head>
         <title>Show Choir Monthly Membership</title>
         <meta
@@ -21,10 +21,12 @@ const MonthlyMembershipDetail: NextPage = () => {
 
       <div className="flex flex-col">
         <Nav pathData={pathData} />
+        <div className="flex flex-col items-center mt-16">
+          <NewMemberSignUpForm />
+        </div>
+        <Footer />
       </div>
-      <NewMemberSignUpForm />
-      <Footer />
-    </div>
+    </>
   );
 };
 
