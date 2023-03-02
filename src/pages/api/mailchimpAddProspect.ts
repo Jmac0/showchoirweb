@@ -70,8 +70,6 @@ export default async function handler(
         message = errorObject.title;
       }
 
-      res
-        .status(400)
-        .json({ status: err.response.status, userMessage: message });
+      res.status(400).json({ status: err.response.status, message });
     });
 }

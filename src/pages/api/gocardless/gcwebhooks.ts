@@ -1,9 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 const webhooks = require('gocardless-nodejs/webhooks');
 import { buffer } from 'micro';
-import dbConnect from '../../lib/dbConnect';
-import { MandateType, MemberType } from '../../../types';
-import { getCustomerFromGoCardless } from './helpers/getCutomerGoCardless';
+import dbConnect from '../../../lib/dbConnect';
+import { MandateType, MemberType } from '../../../../types';
+import { getCustomerFromGoCardless } from '../helpers/getCutomerGoCardless';
+
+/*🛑 REMEMBER TO START NGROK FOR LOCAL TESTING*/
+
 const webhookEndpointSecret = process.env.GC_WEBHOOK_SECRET;
 // @ts-ignore
 const Members = require('../../lib/models/member');
@@ -20,7 +23,7 @@ const processEvents = async (event: MandateType) => {
     case 'cancelled':
       await Members.findOneAndUpdate(
         { email: `${customer.email}` },
-        { active: false },
+        { active_mandate: false },
       )
         .then((res: MemberType) => {
           console.log(res);

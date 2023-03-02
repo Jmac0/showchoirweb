@@ -10,7 +10,7 @@ function MembershipOptionsContainer({ flexiInfo, monthlyInfo }: Props) {
     <div className="flex flex-col flex-wrap items-center justify-center md:flex-row">
       <MembershipOptionInfo
         markdown={monthlyInfo}
-        navigateTo={'membership/monthly'}
+        navigateTo={'monthly'}
       />
       <MembershipOptionInfo markdown={flexiInfo} navigateTo={'*'} />
     </div>

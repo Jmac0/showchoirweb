@@ -17,5 +17,4 @@ module.exports = {
       heading: ['Courgette', 'cursive'],
     },
   },
-  plugins: [require('@tailwindcss/typography')],
 };

@@ -13,7 +13,7 @@ const initialState: initialState = {
   urls: [],
 };
 // the slice takes care of the reducer, actions and immutable state
-const profileSlice = createSlice({
+const urlSlice = createSlice({
   name: 'url',
   initialState,
   reducers: {
@@ -34,7 +34,7 @@ const profileSlice = createSlice({
   },
 });
 // export the reducer
-export default profileSlice.reducer;
-export const { setUrlData } = profileSlice.actions;
+export default urlSlice.reducer;
+export const { setUrlData } = urlSlice.actions;
 // selector function to make shorter work of useSelector throughout app
 export const selectUrls = (state: AppState) => state.url.urls;

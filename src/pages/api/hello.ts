@@ -8,10 +8,12 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  await dbConnect();
-  const results = await Members.find({});
+//  await dbConnect();
+  //const results = await Members.find({});
 
-  console.log(results + 'hello');
+  console.log(req.body);
 
-  res.status(200).json({ results });
+	res.status(200).json('ok');
+
+
 }

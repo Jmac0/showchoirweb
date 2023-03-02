@@ -21,16 +21,23 @@ export const getCustomerFromGoCardless = async (event: MandateType) => {
 
   // return all customer info
   const newCustomerObject: MemberType = {
-    active: true,
+	  age_confirm: false,
+	  consent: false,
+	  county: "",
+	  home_choir: undefined,
+	  phone_number: 0,
+	  post_code: undefined,
+	  town_city: "",
+	  active_mandate: true,
     email: `${customer.email}`,
-    memberOption: `${membershipOption}`,
+    membership_type: `${membershipOption}`,
     mandate: `${event.links.mandate}`,
     go_cardless_id: `${customer.id}`,
     first_name: `${customer.given_name}`,
     last_name: `${customer.family_name}`,
-    address: `${customer.address_line1}, ${
+    street_address: `${customer.address_line1}, ${
       customer.address_line2 || ''
-    }`.trim(),
+    }`.trim()
   };
 
   return newCustomerObject;

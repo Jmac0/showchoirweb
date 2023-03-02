@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { baseURL } from '../../lib/urls';
 
 interface RequestConfig {
   url: string;
-  method: 'POST' | 'GET' | 'PATCH';
+  method: string;
   withCredentials: boolean;
   token?: string;
 }
@@ -16,14 +15,13 @@ function useHttp(requestConfig: RequestConfig) {
   const [message, setMessage] = useState('');
 
   // loading state for button
-  //TODO convert all to state
 
   // function returned from this hook
   const sendRequest = async (body: any = null, callback: any = null) => {
     setLoading(true);
     await axios({
       method: requestConfig.method ? requestConfig.method : 'GET',
-      url: `${baseURL}/${requestConfig.url}`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/${requestConfig.url}`,
       data: body,
       headers: {
         Authorization: `Bearer ${requestConfig.token || ''} `,
@@ -45,9 +43,10 @@ function useHttp(requestConfig: RequestConfig) {
       })
 
       .catch((err) => {
+		  console.log(err)
         setIsErrorMessage(true);
         setShowUserMessage(true);
-        setMessage(err.response.data.userMessage);
+        setMessage(err.response.data.message );
         setLoading(true);
         setTimeout(() => {
           setLoading(false);

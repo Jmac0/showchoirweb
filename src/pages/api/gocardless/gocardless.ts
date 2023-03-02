@@ -1,6 +1,6 @@
 const gocardless = require('gocardless-nodejs');
 import type { NextApiRequest, NextApiResponse } from 'next';
-import dbConnect from '../../lib/dbConnect';
+import dbConnect from '../../../lib/dbConnect';
 const constants = require('gocardless-nodejs/constants');
 const Members = require('../../lib/models/member');
 
@@ -15,21 +15,21 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   await dbConnect();
-const redirectFlow = await client.redirectFlows.create({
-  description: "Show Choir",
-  session_token: "TK12pis3",
-  success_redirect_url: "https://www.show-choir.co.uk",
-  prefilled_customer: {
-    given_name: "Mike",
-    family_name: "Strutter",
-    email: "frank.osborne@acmeplc.com"
-  }
-});
-  // get all active mandates 
-/*   const instalmentSchedules = await client.mandates.list({
+  const redirectFlow = await client.redirectFlows.create({
+    description: 'Show Choir',
+    session_token: 'TK12pis3',
+    success_redirect_url: 'https://www.show-choir.co.uk',
+    prefilled_customer: {
+      given_name: 'Mike',
+      family_name: 'Strutter',
+      email: 'frank.osborne@acmeplc.com',
+    },
+  });
+  // get all active mandates
+  /*   const instalmentSchedules = await client.mandates.list({
     status: 'active',
   });
-  //get customer id from the mandates links array 
+  //get customer id from the mandates links array
   const customers = instalmentSchedules.mandates.map(
     (m: { links: { customer: any } }) => {
       return m.links.customer;
@@ -38,7 +38,7 @@ const redirectFlow = await client.redirectFlows.create({
 
   */
   // retrieve customer details for each Factive mandate
- /* 
+  /*
   const result = await Promise.all(
     customers.map((customer: string) => {
       return client.customers.find(customer);
@@ -48,7 +48,7 @@ const redirectFlow = await client.redirectFlows.create({
   // console.log(instalmentSchedules);
 
   // filter out unnecessary customer info
-/* 
+  /*
   const customerDetails = result.map((customer) => {
     return {
       active: true,
@@ -83,8 +83,8 @@ const redirectFlow = await client.redirectFlows.create({
 		"postal_code": "RH4 2EX",
 */
 
- //const result = await Promise.all(activeCustomers);
-   res.status(200).json(redirectFlow);
+  //const result = await Promise.all(activeCustomers);
+  res.status(200).json(redirectFlow);
 }
 
 export {};

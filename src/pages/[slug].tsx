@@ -6,7 +6,6 @@ import { setUrlData } from '../features/urlSlice';
 import Head from 'next/head';
 import { Nav } from '../components/Nav';
 import { Footer } from '../components/Footer';
-import { MembershipOptionInfo } from '../components/MembershipOptionInfo';
 import { wrapper } from '../store/store';
 import { BLOCKS } from '@contentful/rich-text-types';
 import MembershipOptionsContainer from '../components/MembershipOptionsContainer';
@@ -44,9 +43,9 @@ export default function Slug({ currentPage, pathData }: Props) {
       </Head>
       <Nav pathData={pathData} />
       <main
-        className={`w-screen flex p-2.5 flex-col items-center bg-transparent mt-16`}
+        className={`mt-16 flex w-screen flex-col items-center bg-transparent p-2.5 `}
       >
-        <div className="flex flex-col w-9/12 text-center pb-10">{bodyTxt}</div>
+        <div className="flex w-9/12 flex-col pb-10 text-center">{bodyTxt}</div>
         {/*component displaying membership option boxes */}
         {flexiInfo && (
           <MembershipOptionsContainer
