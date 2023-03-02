@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { Simulate } from 'react-dom/test-utils';
+import submit = Simulate.submit;
+
 function NewMemberSignUpForm() {
   const [ageConfirm, setAgeConfirm] = useState(false);
   const [termsAndConditions, setTermsAndConditions] = useState(false);
+  const { register, handleSubmit } = useForm();
+
   type NewMemberFormState = {
     phoneNumber: any;
     postCode: any;
@@ -13,6 +19,7 @@ function NewMemberSignUpForm() {
     email: string;
     ageConfirm: boolean;
     homeChoir: any;
+    consent: boolean;
   };
 
   const initialFormState: NewMemberFormState = {
@@ -26,6 +33,7 @@ function NewMemberSignUpForm() {
     email: '',
     ageConfirm: ageConfirm,
     homeChoir: '',
+    consent: false,
   };
   const [formState, setFormState] =
     useState<NewMemberFormState>(initialFormState);
@@ -40,20 +48,26 @@ function NewMemberSignUpForm() {
     });
   };
 
+  const submitForm = (data: any) => {
+    console.log(data);
+  };
+
   return (
     <div className="flex flex-col items-center py-1 lg:w-3/4 ">
       <h2>Join The Fun!</h2>
-      <form className="flex flex-col w-11/12 h-full space-y-6 p-3 text-gray-50 rounded-md border-2 border-lightGold ">
+      <form
+        onSubmit={handleSubmit(submitForm)}
+        className="flex flex-col w-11/12 h-full space-y-6 p-3 text-gray-50 rounded-md border-2 border-lightGold "
+      >
         <div className="my-2 flex flex-col md:flex-row">
           <label className="w-32" htmlFor="first_name">
             First name
           </label>
           <input
-            required={true}
             className="w-full md:w-9/12 pl-1 text-sm text-black"
             type="text"
             id="first_name"
-            name="firstName"
+            {...register('firstName')}
             value={formState.firstName}
             onChange={handleInputChange}
           />
@@ -64,11 +78,10 @@ function NewMemberSignUpForm() {
             Last name
           </label>
           <input
-            required={true}
             className="w-full md:w-9/12 pl-1 text-sm text-black"
             type="text"
             id="last_name"
-            name="lastName"
+            {...register('lastName')}
             value={formState.lastName}
             onChange={handleInputChange}
           />
@@ -79,11 +92,10 @@ function NewMemberSignUpForm() {
             Street address
           </label>
           <input
-            required={true}
             className="w-full md:w-9/12 pl-1 text-sm text-black"
             type="text"
             id="street_address"
-            name="streetAddress"
+            {...register('streetAddress')}
             value={formState.streetAddress}
             onChange={handleInputChange}
           />
@@ -93,11 +105,10 @@ function NewMemberSignUpForm() {
             Town/City
           </label>
           <input
-            required={true}
             className="w-full md:w-9/12 pl-1 text-sm text-black"
             type="text"
             id="town_city"
-            name="townOrCity"
+            {...register('townOrCity')}
             value={formState.townOrCity}
             onChange={handleInputChange}
           />
@@ -107,11 +118,10 @@ function NewMemberSignUpForm() {
             County
           </label>
           <input
-            required={true}
             className="w-full md:w-9/12 pl-1 text-sm text-black"
             type="text"
             id="county"
-            name="county"
+            {...register('county')}
             value={formState.county}
             onChange={handleInputChange}
           />
@@ -122,11 +132,10 @@ function NewMemberSignUpForm() {
             Post Code
           </label>
           <input
-            required={true}
             className="w-9/12 pl-1 text-sm text-black "
             type="text"
             id="post_code"
-            name="postCode"
+            {...register('postCode')}
             value={formState.postCode}
             onChange={handleInputChange}
           />
@@ -137,11 +146,10 @@ function NewMemberSignUpForm() {
             Phone Number
           </label>
           <input
-            required={true}
             className="w-9/12 pl-1 text-sm text-black"
             type="number"
             id="phone_number"
-            name="phoneNumber"
+            {...register('phoneNumber')}
             value={formState.phoneNumber}
             onChange={handleInputChange}
           />
@@ -151,11 +159,10 @@ function NewMemberSignUpForm() {
             Email : *
           </label>
           <input
-            required={true}
             className="w-full md:w-9/12 pl-1 text-sm text-black"
             type="email"
             id="email"
-            name="email"
+            {...register('email')}
             value={formState.email}
             onChange={handleInputChange}
           />
@@ -170,10 +177,9 @@ function NewMemberSignUpForm() {
             Home Choir : *
           </label>
           <select
-            required={true}
             className="w-48 text-black"
             id="home_choir"
-            name="homeChoir"
+            {...register('homeChoir')}
             value={formState.homeChoir}
             onChange={handleInputChange}
           >
@@ -191,11 +197,10 @@ function NewMemberSignUpForm() {
             I am over 18 *
           </label>
           <input
-            required={true}
             className=" text-sm text-black mt-1.5 "
             type="checkbox"
             id="ageConfirm"
-            name="ageConfirm"
+            {...register('ageConfirm')}
             defaultChecked={ageConfirm}
             onChange={() => setAgeConfirm(!ageConfirm)}
           />
@@ -214,16 +219,16 @@ function NewMemberSignUpForm() {
               I agree:*
             </label>
             <input
-              required={true}
               className="mt-1.5 "
               type="checkbox"
-              id="ageConfirm"
-              name="ageConfirm"
+              id="consent"
+              {...register('consent')}
               defaultChecked={termsAndConditions}
               onChange={() => setTermsAndConditions(!termsAndConditions)}
             />
           </div>
         </div>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
