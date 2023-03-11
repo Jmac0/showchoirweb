@@ -27,11 +27,7 @@ const MonthlyMembershipDetail: NextPage = () => {
 
   const submitForm = async (data: any) => {
 	 await sendRequest({data})
-
-
   };
-// TODO step through and comment all code
-console.log('Comment your code Jamie')
   return (
     <>
       <Head>
