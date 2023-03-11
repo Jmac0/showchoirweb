@@ -23,7 +23,6 @@ const MonthlyMembershipDetail: NextPage = () => {
         <Nav pathData={pathData} />
         {/*Add margin top to accommodate menu*/}
         <div className="flex flex-col items-center mt-16">
-          <NewMemberSignUpForm />
         </div>
         <Footer />
       </div>

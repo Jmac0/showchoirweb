@@ -28,7 +28,7 @@ export function Nav({ pathData }: Props) {
   };
   const menuItems = sortedItems.map(
     (item: { slug: string; displayText: string }) => (
-      <Link key={item.slug} href={item.slug}>
+      <Link key={item.slug} href={item.slug} legacyBehavior  >
         <a className="text-white mb-10 font-heading px-3 md:mb-0 hover:text-gray-600 text-2xl">
           {item.displayText}
         </a>

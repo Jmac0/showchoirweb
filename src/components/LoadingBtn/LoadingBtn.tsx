@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 type Props = {
   text: string;
-disableBtn: boolean;
+  disableBtn: boolean;
   loading: boolean;
 };
 
-export function LoadingBtn({ text, loading }: Props) {
+export const LoadingBtn = ({ text, loading }: Props,) => {
+  useEffect(() => {
+    if (loading) {
+      setTimeout;
+    }
+  }, [loading]);
   return (
     <button
-	  disabled={loading}
-      className={` disabled:opacity-75 w-1/3 h-10 ml-32 mt-2 rounded-md border-lightGoldmd bg-transparent border-2 border-lightGold 
-		enabled:hover:bg-lightGold enabled:hover:text-black enabled:transition-colors enabled:duration-500 ${loading && "animate-pulse"} `}
+      disabled={loading}
+      className={` mt-2 h-10 min-w-max px-5 rounded-md border-2 border-lightGold bg-transparent  enabled:transition-colors 
+		enabled:duration-500 enabled:hover:bg-lightGold enabled:hover:text-black disabled:opacity-75 ${
+      loading && 'animate-pulse'
+    } `}
       type="submit"
     >
       {loading ? 'Loading' : text}
