@@ -13,7 +13,7 @@ function useHttp(requestConfig: RequestConfig) {
   const [showUserMessage, setShowUserMessage] = useState(false);
   const [isErrorMessage, setIsErrorMessage] = useState(false);
   const [message, setMessage] = useState('');
-
+  const [responseData, setResponseData] = <any>useState();
   // loading state for button
 
   // function returned from this hook
@@ -34,6 +34,7 @@ function useHttp(requestConfig: RequestConfig) {
         setIsErrorMessage(false);
         setShowUserMessage(true);
         setMessage(response.data.userMessage);
+		setResponseData(response.data)
         setTimeout(() => {
           setLoading(false);
         }, 300);
@@ -43,10 +44,10 @@ function useHttp(requestConfig: RequestConfig) {
       })
 
       .catch((err) => {
-		  console.log(err)
+        console.log(err);
         setIsErrorMessage(true);
         setShowUserMessage(true);
-        setMessage(err.response.data.message );
+        setMessage(err.response.data.message);
         setLoading(true);
         setTimeout(() => {
           setLoading(false);
@@ -60,6 +61,7 @@ function useHttp(requestConfig: RequestConfig) {
     setLoading,
     sendRequest,
     showUserMessage,
+	responseData,
     setShowUserMessage,
     isErrorMessage,
     setIsErrorMessage,

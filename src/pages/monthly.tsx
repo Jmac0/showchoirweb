@@ -7,7 +7,6 @@ import Head from 'next/head';
 import { Nav } from '../components/Nav';
 import useHttp from "../components/hooks/useHttp";
 const MonthlyMembershipDetail: NextPage = () => {
-//	const submitState = useSelector((state: AppState) => state.newMemberState)
   const pathData = useSelector(selectUrls);
   const {
     loading,
