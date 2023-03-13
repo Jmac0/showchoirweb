@@ -125,11 +125,12 @@ const BookTasterFrom: React.FC = () => {
         </select>
       </div>
       <LoadingBtn disableBtn={disableBtn} text={'Book Now'} loading={loading} />
-      <UserMessage
+{/*Show message component if there is a message*/}
+{ showUserMessage && <UserMessage
         message={message}
         isError={isErrorMessage}
         showMessage={showUserMessage}
-      />
+      />}
     </form>
   );
 };

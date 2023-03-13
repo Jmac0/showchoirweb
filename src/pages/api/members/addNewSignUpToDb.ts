@@ -1,7 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../../lib/dbConnect';
-import axios, { AxiosResponse } from 'axios';
-import { resolve } from 'path';
 const Members = require('../../../lib/models/member');
 const constants = require('gocardless-nodejs/constants');
 const gocardless = require('gocardless-nodejs');
@@ -19,8 +17,9 @@ export default async function handler(
     res.status(400).json({ message: 'Incorrect data sent to server ' });
     return;
   }
-
+// send request to GOCardless
   const gcFlow = async () => {
+  // create a billing request returns a request id string
     const { id } = await client.billingRequests.create({
       mandate_request: {
         scheme: 'bacs',
@@ -30,7 +29,7 @@ export default async function handler(
     await client.billingRequestFlows
       .create({
         //TODO add hashed email to url
-        redirect_uri: 'http://localhost:3000',
+        redirect_uri: `${process.env.NEXT_PUBLIC_BASE_URL}/?id=${req.body.data.email}`,
         exit_uri: 'https://my-company.com/exit',
         prefilled_customer: {
           given_name: req.body.data.firstName,
@@ -79,19 +78,17 @@ export default async function handler(
     go_cardless_id: '',
   })
     .then((response: { _id: string }) => {
+  //  if the response has the _id property we know it has been added to the db
       if (response._id) {
       return gcFlow();
       }
     })
     .catch((err: any) => {
-      let message = 'There seems to be a problem, please give us a call ';
+      let message = 'There seems to be a problem, please give us a call';
       if (err.code === 11000) {
         message = 'An account with that email already exists';
       }
       res.status(400).json({ message });
     });
-  //  if the response has the _id property we know it has been added to the db
 
-  // create a billing request returns a request id string
-	return resolve()
 }
